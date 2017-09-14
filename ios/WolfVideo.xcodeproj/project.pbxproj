@@ -1561,7 +1561,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "-";
+				PRODUCT_BUNDLE_IDENTIFIER = rn.wolfVideo.sww;
 				PRODUCT_NAME = WolfVideo;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1591,7 +1591,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "-";
+				PRODUCT_BUNDLE_IDENTIFIER = rn.wolfVideo.sww;
 				PRODUCT_NAME = WolfVideo;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

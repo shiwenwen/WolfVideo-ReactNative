@@ -25,9 +25,9 @@ export default class HttpUtil {
      * @param timeout 超时时间 默认60秒
      * @constructor
      */
-    static Post(url: string,params: JSON,successCallback: Function,failureCallback: Function = function(error){},showHUD: boolean = true,timeout: number = 60000) {
+    static Post(url: string,params: JSON,successCallback: Function,failureCallback: Function = function(error){},showHUD: boolean = true,hudBottom : number = 0,timeout: number = 60000) {
         if (showHUD) {
-            LoadingIndicator.show()
+            LoadingIndicator.show(null,hudBottom)
 
         }
         NetInfo.isConnected.fetch().done((isConnected) => {
@@ -87,9 +87,9 @@ export default class HttpUtil {
      * @param timeout 超时时间 默认60秒
      * @constructor
      */
-    static GET(url: string,params: JSON,successCallback: Function,failureCallback: Function = function(error){},showHUD: boolean = true,timeout: number = 60000){
+    static GET(url: string,params: JSON,successCallback: Function,failureCallback: Function = function(error){},showHUD: boolean = true,hudBottom : number = 0, timeout: number = 60000){
         if (showHUD) {
-            LoadingIndicator.show()
+            LoadingIndicator.show(null,hudBottom)
         }
         NetInfo.isConnected.fetch().done((isConnected) => {
             if (!isConnected) {

@@ -25,7 +25,7 @@ import VideoDetail from './Components/Base/VideoDetail'
 import { StackNavigator,TabNavigator } from 'react-navigation';
 import CategoryPage from "./Components/Category/CategoryPage";
 import MinePage from "./Components/Mine/MinePage";
-
+import SearchPage from './Components/Hot/SearchPage'
 // import Orientation from 'react-native-orientation';
 //
 // Orientation.lockToPortrait()
@@ -57,6 +57,11 @@ const mainTabNavigator = TabNavigator({
         screen: NewPage,
         navigationOptions:{
             tabBarLabel: '最新影片',
+            headerTitle:'最新影片',
+            headerTitleStyle:{
+              alignSelf:'center'
+            },
+            headerLeft:<View/>, //使标题偏移居中
             tabBarIcon: ({tintColor,focused}) => (
                 focused ?
                 <Image
@@ -76,6 +81,11 @@ const mainTabNavigator = TabNavigator({
         screen:CategoryPage,
         navigationOptions:{
             tabBarLabel: '影片分类',
+            headerTitle:'影片分类',
+            headerTitleStyle:{
+                alignSelf:'center'
+            },
+            headerLeft:<View/>, //使标题偏移居中
             tabBarIcon: ({tintColor,focused}) => (
                 focused ?
                     <Image
@@ -115,6 +125,7 @@ const mainTabNavigator = TabNavigator({
     tabBarPosition: 'bottom', //底部显示
     swipeEnabled:false, //左右滑动关闭
     backBehavior:'none',
+    lazy:true,//标签懒加载
     tabBarOptions: {
         activeTintColor: '#4AD5BD',
         showIcon:true,
@@ -139,14 +150,18 @@ const mainTabNavigator = TabNavigator({
         }
     }
 })
+
 mainTabNavigator.navigationOptions = {
+
 }
 
 // 导航
 const mainstackNavigator = StackNavigator({
+   // 首页
    Home: {
        screen: mainTabNavigator,
    },
+   // 详情页
    VideoDetail: {
        screen: VideoDetail,
        navigationOptions: {
@@ -157,7 +172,15 @@ const mainstackNavigator = StackNavigator({
            header:null
 
        }
-   }
+   },
+    // 搜索页
+    SearchPage: {
+       screen:SearchPage,
+        navigationOptions: {
+            header:null
+
+        }
+    }
 
 },{
     transitionConfig:()=>({

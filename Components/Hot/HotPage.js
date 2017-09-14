@@ -19,8 +19,9 @@ import SplashScreen from 'react-native-splash-screen';
 import Swiper from 'react-native-swiper';
 import HttpUtil from '../../Utils/HttpUtil';
 import VideoListItem from '../Base/VideoListItem';
-const ScreenUtil = require('../../Utils/ScreenUtil')
-
+import EmptyView from '../Base/EmptyView'
+const ScreenUtil = require('../../Utils/ScreenUtil');
+import Icon from 'react-native-vector-icons/FontAwesome';
 export default class HotPage extends Component {
 
     constructor(props) {
@@ -34,7 +35,7 @@ export default class HotPage extends Component {
     render() {
         // return this._renderHeader()
         return (
-            <ScrollView style={styles.container}>
+            <View style={styles.container}>
                 {/*ListView*/}
                 <FlatList
                     data={this.state.hotDataList}
@@ -47,14 +48,10 @@ export default class HotPage extends Component {
                     keyExtractor={(item, index) => item.id}
                     ItemSeparatorComponent={this._renderItemSeparatorComponent}
                     ListHeaderComponent={this._renderHeader}
-                    ListEmptyComponent={<View style={styles.emptyView}>
-                        <TouchableOpacity onPress={this._onRefresh}>
-                            <Image source={require('../../sources/imgs/icon60.png')} resizeMode='contain'/>
-                        </TouchableOpacity>
-                    </View>}
+                    ListEmptyComponent={<EmptyView onPress={this._onRefresh}/>}
             >
                 </FlatList>
-            </ScrollView>
+            </View>
         );
     }
 
@@ -94,7 +91,14 @@ export default class HotPage extends Component {
                     loop
                 >
                     {this._renderSlide()}
+                    {/*搜索框*/}
                 </Swiper >
+                <TouchableOpacity style={styles.search} onPress={() => {
+                    this.props.navigation.navigate('SearchPage')
+                }}>
+                    <Icon name='search' size={20}/>
+                    <Text style={styles.searchTip}>搜索您想看的影片</Text>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -171,7 +175,7 @@ export default class HotPage extends Component {
             this.setState({
                 isRefreshing:false
             })
-        },showHUD)
+        },showHUD,49)
     }
 }
 
@@ -183,13 +187,6 @@ const styles = StyleSheet.create({
     header:{
         height:ScreenUtil.scaleWidthSize(170)
     },
-    emptyView: {
-        flex:1,
-        height:ScreenUtil.screenH-49,
-        alignItems:'center',
-        paddingTop:80
-        // justifyContent:'center',
-    },
     wrapper: {
         flex:1,
     },
@@ -200,6 +197,30 @@ const styles = StyleSheet.create({
     slide: {
         flex: 1,
     },
-
+    search: {
+        position:'absolute',
+        left:40,
+        right:40,
+        height:35,
+        bottom:30,
+        backgroundColor:'white',
+        borderRadius:5,
+        shadowColor:'#333',
+        shadowOffset:{
+            width:3,
+            height:3
+        },
+        shadowOpacity:0.5,
+        shadowRadius:5,
+        elevation:4,
+        flexDirection:'row',
+        paddingHorizontal:20,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    searchTip: {
+        marginLeft:20,
+        fontSize:17
+    }
 
 });
