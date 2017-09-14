@@ -6,14 +6,83 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
-    Text
+    Text,
+    FlatList,
+    ImageBackground,
+    Image,
+    Platform,
+    BackHandler,
+    TouchableOpacity,
+    ScrollView
 } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 import Swiper from 'react-native-swiper';
+import HttpUtil from '../../Utils/HttpUtil';
+import VideoListItem from '../Base/VideoListItem';
+const ScreenUtil = require('../../Utils/ScreenUtil')
+
 export default class HotPage extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            hotDataList:[],
+            headerData:[],
+            isRefreshing:false
+        }
+    }
     render() {
+        // return this._renderHeader()
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
+                {/*ListView*/}
+                <FlatList
+                    data={this.state.hotDataList}
+                    renderItem={this._renderItem}
+                    getItemLayout={(data,index) => {
+                        return {length:125,offset:125.5*index,index}
+                    }}
+                    refreshing={this.state.isRefreshing}
+                    onRefresh={this._onRefresh}
+                    keyExtractor={(item, index) => item.id}
+                    ItemSeparatorComponent={this._renderItemSeparatorComponent}
+                    ListHeaderComponent={this._renderHeader}
+                    ListEmptyComponent={<View style={styles.emptyView}>
+                        <TouchableOpacity onPress={this._onRefresh}>
+                            <Image source={require('../../sources/imgs/icon60.png')} resizeMode='contain'/>
+                        </TouchableOpacity>
+                    </View>}
+            >
+                </FlatList>
+            </ScrollView>
+        );
+    }
+
+    componentDidMount() {
+        SplashScreen.hide()
+        this._requestHotData(true)
+        if (Platform.OS === 'android') {
+            BackHandler.addEventListener('handwareBackPress',this.onBackAndroid)
+        }
+    }
+
+    componentWillUnmount() {
+        if (Platform.OS === 'android') {
+            BackHandler.addEventListener('handwareBackPress',this.onBackAndroid)
+        }
+    }
+    onBackAndroid = () => {
+        // return true
+    }
+
+
+    /*渲染头部*/
+    _renderHeader = () => {
+        if (this.state.headerData.length < 1) {
+            return null
+        }
+        return (
+            <View style={styles.header}>
                 <Swiper
                     style={styles.wrapper}
                     activeDotColor="#4AD5BD"
@@ -24,57 +93,113 @@ export default class HotPage extends Component {
                     }}
                     loop
                 >
-                    <View style={styles.slide1}>
-                        <Text style={styles.text}>Hello Swiper</Text>
-                    </View>
-                    <View style={styles.slide2}>
-                        <Text style={styles.text}>Beautiful</Text>
-                    </View>
-                    <View style={styles.slide3}>
-                        <Text style={styles.text}>And simple</Text>
-                    </View>
-                    <View style={styles.slide2}>
-                        <Text style={styles.text}>Fuck</Text>
-                    </View>
+                    {this._renderSlide()}
                 </Swiper >
-                <Text style={styles.content}>热门影片</Text>
             </View>
-        );
+        )
+    }
+    _renderSlide(){
+        let slides = new Array()
+        for (let i = 0;i < this.state.headerData.length; i++) {
+            let model = this.state.headerData[i]
+            slides.push(
+                <ImageBackground style={styles.slide} source={require('../../sources/imgs/imagePlaceholder.png')} resizeMode='stretch' key={i}>
+                    <TouchableOpacity style={styles.slide} onPress={() => {
+                        this._onPressItme(model,i)
+                    }}>
+                        <Image style={styles.slide} resizeMode='cover' source={{uri:model.playcover}}/>
+                    </TouchableOpacity>
+                </ImageBackground>
+            )
+        }
+        return slides
+    }
+    /*渲染列表Item*/
+    _renderItem = (info) => {
+        // console.log(info)
+        return(
+            <VideoListItem model={info.item} index={info.index} onPress={this._onPressItme}/>
+        )
+    }
+    /*点击item*/
+    _onPressItme = (model,index) => {
+        console.log('点击了'+index)
+        const { navigate } = this.props.navigation;
+        navigate(
+            'VideoDetail',
+            {
+                title:model.title,
+                id:model.id,
+                barcode:model.barcode,
+                play_conver:model.playcover,
+                player:model.player,
+                sys_ctime:model.sys_ctime,
+                cat_text:model.cat_text,
+                count:model.count
+            }
+        )
+    }
+    /*渲染分割线*/
+    _renderItemSeparatorComponent = () => {
+        return (<View style={styles.separator}></View>)
+    }
+    /**
+     * 刷新
+     * @private
+     */
+    _onRefresh = () => {
+        this.setState({
+            isRefreshing:true
+        })
+        this._requestHotData(false)
+    }
+    /*请求数据*/
+    _requestHotData(showHUD){
+
+        HttpUtil.GET(HttpUtil.APIS.WolfVideoApis.Base+HttpUtil.APIS.WolfVideoApis.HostList,{},(response) => {
+            let wrapper = []
+            for (let i = 0; i < 4; i ++) {
+                wrapper.push(response.rows[parseInt(response.total*Math.random())])
+            }
+            this.setState({
+                isRefreshing:false,
+                hotDataList:response.rows,
+                headerData:wrapper,
+            })
+
+        },(error) => {
+            this.setState({
+                isRefreshing:false
+            })
+        },showHUD)
     }
 }
 
 const styles = StyleSheet.create({
     container: {
         flex:1,
+        backgroundColor:'white'
+    },
+    header:{
+        height:ScreenUtil.scaleWidthSize(170)
+    },
+    emptyView: {
+        flex:1,
+        height:ScreenUtil.screenH-49,
+        alignItems:'center',
+        paddingTop:80
+        // justifyContent:'center',
     },
     wrapper: {
-        flex:1
+        flex:1,
     },
-    slide1: {
+    separator: {
+      height:0.5,
+      backgroundColor:'#ececec'
+    },
+    slide: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#9DD6EB',
     },
-    slide2: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#97CAE5',
-    },
-    slide3: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#92BBD9',
-    },
-    text: {
-        color: '#fff',
-        fontSize: 30,
-        fontWeight: 'bold',
-    },
-    content: {
-        flex:2,
-        color: "#0097ff"
-    }
+
+
 });
