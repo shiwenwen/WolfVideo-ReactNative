@@ -30,8 +30,8 @@ export default class HttpUtil {
             LoadingIndicator.show(null,hudBottom)
 
         }
-        NetInfo.isConnected.fetch().done((isConnected) => {
-            if (!isConnected) {
+        NetInfo.fetch().done((state) => {
+            if (state == 'none') {
                 if (showHUD) {
                     LoadingIndicator.hidden()
                 }
@@ -91,8 +91,8 @@ export default class HttpUtil {
         if (showHUD) {
             LoadingIndicator.show(null,hudBottom)
         }
-        NetInfo.isConnected.fetch().done((isConnected) => {
-            if (!isConnected) {
+        NetInfo.fetch().done((state) => {
+            if (state == 'none') {
                 if (showHUD) {
                     LoadingIndicator.hidden()
                 }

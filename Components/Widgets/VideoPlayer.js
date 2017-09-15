@@ -102,6 +102,9 @@ export default class VideoPlayer extends Component {
                 {
                     this._renderError()
                 }
+                {
+                    this._renderProgress()
+                }
             </TouchableOpacity>
 
         );
@@ -162,6 +165,17 @@ export default class VideoPlayer extends Component {
             playableDuration: event.playableDuration,
         })
         this.props.onProgress && this.props.onProgress(event)
+    }
+    _renderProgress() {
+        return this.state.showControl ? null : <Slider disabled={true}
+                                                        value={this.state.currentTime}
+                                                        maximumValue={this.state.duration}
+                                                        minimumTrackTintColor='#4AD5BD'
+                                                        maximumTrackTintColor='white'
+                                                        style={styles.progress}
+                                                        thumbStyle={styles.progressThumb}
+                                                       trackStyle={styles.track}
+        />
     }
     /**
      * 结束
@@ -466,10 +480,27 @@ const styles = StyleSheet.create({
         opacity:0.8
     },
     reloadText: {
-        fontSize:15,
-        fontWeight:'bold',
-        color:'#4AD5BD',
-        opacity:0.8
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: '#4AD5BD',
+        opacity: 0.8
+    },
+    progress: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right:0,
+        height:3,
+        opacity: 0.6
+    },
+    track: {
+        height:3,
+        borderRadius:0,
+
+    },
+    progressThumb: {
+        width:0,
+        height:0
     }
 
 });

@@ -17,10 +17,7 @@ export default class CategoryPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            category:[
-
-
-            ],
+            category:[],
             isRefreshing:false
         }
     }
@@ -64,7 +61,19 @@ export default class CategoryPage extends Component {
     _renderItem = (info,index) => {
         // console.log(info,index)
         return <TouchableOpacity style={styles.item} onPress={() => {
+            const {section} = info
+            console.log(section)
+            switch (section.sec) {
+                case 0: {
 
+                } break
+                case 1: {
+                    this.props.navigation.navigate('CategoryDetailPage',{title:info.item.title,catId:info.item.id})
+                }
+                case 2: {
+                    this.props.navigation.navigate('CategoryDetailPage',{title:info.item.title,catId:info.item.id})
+                }
+            }
         }}>
             <Text style={styles.itemTitle}>{info.item.title+(info.item.count > 0 ? `(${info.item.count})` : '')}</Text>
             <Icon name='chevron-right' size={15} backgroundColor='#d9d9d9' style={styles.itemTitleIcon}/>
@@ -97,8 +106,8 @@ export default class CategoryPage extends Component {
                 isRefreshing:false,
                 category:[
                     {data:[{title:'演员列表',id:0,count:0}], title:'演员分类',sec:0},
-                    {data:response.rows_2, title:'无码高清',sec:2},
-                    {data:response.rows_1, title:'剧情薄码',sec:1}
+                    {data:response.rows_2, title:'无码高清',sec:1},
+                    {data:response.rows_1, title:'剧情薄码',sec:2}
                 ]
             })
 

@@ -10,7 +10,8 @@ import {
     ImageBackground,
     Text,
     TouchableOpacity,
-    StatusBar
+    StatusBar,
+    ScrollView
 } from 'react-native';
 import HttpUtil from '../../Utils/HttpUtil';
 const ScreenUtil = require('../../Utils/ScreenUtil')
@@ -55,29 +56,32 @@ export default class  extends Component {
                 {
                     this._renderPlayer_cover()
                 }
-                {/* 标题*/}
-                <Text style={styles.title}>{this.state.title + `(${this.state.cat_text})`}</Text>
-                {/* 播放次数 收藏 */}
-                <View style={styles.countLine}>
-                    <Text style={styles.count}>{'播放次数：' + this.state.count}</Text>
-                    <TouchableOpacity onPress={this._collect}>
-                        <Image source={this.state.isCollect ? require('../../sources/imgs/HotSel.png') : require('../../sources/imgs/HotNormal.png')}/>
-                    </TouchableOpacity>
-                </View>
-                {/*番号*/}
-                <Text style={styles.barcode}>{'番号：' + this.state.barcode}</Text>
-                {/*演员名*/}
-                <Text style={styles.player}>{this.state.player}</Text>
-                {/*分集*/}
-                <View style={styles.diversity}>
+                <ScrollView>
+                    {/* 标题*/}
+                    <Text style={styles.title}>{this.state.title + `(${this.state.cat_text})`}</Text>
+                    {/* 播放次数 收藏 */}
+                    <View style={styles.countLine}>
+                        <Text style={styles.count}>{'播放次数：' + this.state.count}</Text>
+                        <TouchableOpacity onPress={this._collect}>
+                            <Image source={this.state.isCollect ? require('../../sources/imgs/HotSel.png') : require('../../sources/imgs/HotNormal.png')}/>
+                        </TouchableOpacity>
+                    </View>
+                    {/*番号*/}
+                    <Text style={styles.barcode}>{'番号：' + this.state.barcode}</Text>
+                    {/*演员名*/}
+                    <Text style={styles.player}>{this.state.player}</Text>
+                    {/*分集*/}
+                    <View style={styles.diversity}>
+                        {
+                            this._renderDiversityItem()
+                        }
+                    </View>
+                    {/* 完整 */}
                     {
-                        this._renderDiversityItem()
+                        this._renderFullPlay()
                     }
-                </View>
-                {/* 完整 */}
-                {
-                    this._renderFullPlay()
-                }
+                </ScrollView>
+
             </View>
         );
     }
@@ -138,10 +142,10 @@ export default class  extends Component {
      * @private
      */
     _renderVideo() {
-        return (<Video style={[styles.video,{height:this.state.videoHeight}]} goBack={this._goBack} source={{uri:this.state.currentUrl}}
+        return this.state.currentUrl ? (<Video style={[styles.video,{height:this.state.videoHeight}]} goBack={this._goBack} source={{uri:this.state.currentUrl}}
                        title={this.state.title + + `(${this.state.cat_text})_${this.state.currentIndex+1}`}
                        // poster={this.state.play_conver}
-                       />)
+                       />) : null
     }
 
     /**
@@ -327,7 +331,7 @@ const styles = StyleSheet.create({
         color:'white'
     },
     fullPlay: {
-        marginTop:20,
+        marginVertical:40,
         borderRadius:5,
         backgroundColor:'#4AD5BD',
         marginHorizontal:30,

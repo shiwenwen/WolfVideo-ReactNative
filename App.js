@@ -20,12 +20,17 @@ import HotPage from "./Components/Hot/HotPage"
 import NewPage from "./Components/New/NewPage"
 //视频详情页
 import VideoDetail from './Components/Base/VideoDetail'
+//分类详情页
+import CategoryDetailPage from './Components/Category/CategoryDetailPage'
+//分类页
+import CategoryPage from "./Components/Category/CategoryPage";
+//个人页
+import MinePage from "./Components/Mine/MinePage";
+//搜索页
+import SearchPage from './Components/Hot/SearchPage'
 
 /*------------------react-navigation------------------------------*/
 import { StackNavigator,TabNavigator } from 'react-navigation';
-import CategoryPage from "./Components/Category/CategoryPage";
-import MinePage from "./Components/Mine/MinePage";
-import SearchPage from './Components/Hot/SearchPage'
 // import Orientation from 'react-native-orientation';
 //
 // Orientation.lockToPortrait()
@@ -58,9 +63,6 @@ const mainTabNavigator = TabNavigator({
         navigationOptions:{
             tabBarLabel: '最新影片',
             headerTitle:'最新影片',
-            headerTitleStyle:{
-              alignSelf:'center'
-            },
             headerLeft:<View/>, //使标题偏移居中
             tabBarIcon: ({tintColor,focused}) => (
                 focused ?
@@ -82,9 +84,6 @@ const mainTabNavigator = TabNavigator({
         navigationOptions:{
             tabBarLabel: '影片分类',
             headerTitle:'影片分类',
-            headerTitleStyle:{
-                alignSelf:'center'
-            },
             headerLeft:<View/>, //使标题偏移居中
             tabBarIcon: ({tintColor,focused}) => (
                 focused ?
@@ -105,6 +104,7 @@ const mainTabNavigator = TabNavigator({
         screen: MinePage,
         navigationOptions:{
             tabBarLabel: '我的',
+            header:null,
             tabBarIcon: ({tintColor,focused}) => (
                 focused ?
                     <Image
@@ -132,12 +132,15 @@ const mainTabNavigator = TabNavigator({
         upperCaseLabel:false,
         inactiveTintColor:'#999',
         pressColor:"#4AD5BD",
-        style: {
-            height:49,
+        style: Platform.OS == 'android' ? {
+                height:49,
+                backgroundColor:'white',
+                borderTopColor:'#d9d9d9',
+                borderTopWidth:0.5
+        } : {
             backgroundColor:'white',
-            borderTopColor:'#d9d9d9',
-            borderTopWidth:0.5
         },
+
         indicatorStyle:{
             height:0
         },
@@ -165,10 +168,6 @@ const mainstackNavigator = StackNavigator({
    VideoDetail: {
        screen: VideoDetail,
        navigationOptions: {
-           // headerTitle:'详情',
-           // headerTitleStyle:{
-           //     alignSelf:'center'
-           // },
            header:null
 
        }
@@ -180,6 +179,13 @@ const mainstackNavigator = StackNavigator({
             header:null
 
         }
+
+    },
+    /**
+     * 分类详情
+     */
+    CategoryDetailPage: {
+       screen: CategoryDetailPage
     }
 
 },{
@@ -188,7 +194,13 @@ const mainstackNavigator = StackNavigator({
     }),
     navigationOptions:{
         headerBackTitle:'返回',
-        headerRight: <View />
+        headerTitleStyle:{
+            alignSelf:'center'
+        },
+        headerRight: <View />,
+        headerStyle:{
+            backgroundColor:'white'
+        }
     }
 })
 const styes = StyleSheet.create({
