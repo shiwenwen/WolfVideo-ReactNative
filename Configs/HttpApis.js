@@ -16,19 +16,20 @@ module.exports = {
         SignVerify:"2edJwjL9Rwcb5dtUH32NdbINSP0kOqoIcIy6yWDT99hgmBeoCUtPtJo4YidbISC6"
     },
     MyServerApis: {
-      Base: "http://47.94.175.119:8181/wolfVideo/", //我的服务地址 ip 35.163.52.183  ec2-35-163-52-183.us-west-2.compute.amazonaws.com
-      Login:"account/login", //登录
-      Register: "account/register", //注册
-      Info: "account/info", //获取个人信息
-      GetAuthList: "authCodeManager/getAuthList", //邀请码列表
-      AddNewAuthCodes: "authCodeManager/addNewAuthCodes", //添加邀请码
-      GetCollectList: "collects/getCollectList", //获取收藏列表
-      AddNewCollect: "collects/addNewCollect", //收藏
-      CancelCollect: "collects/cancelCollect", //取消收藏
-      GetCollectsCount: "collects/getCollectsCount", //收藏数量
-      CheckIsCollect: "collects/checkIsCollect", //收藏数量
-      UploadAvatar: "upload/avatar", //上传头像
-      UpdateInfo: "account/updateInfo" //更新信息
+        // Base: "http://47.94.175.119:8181/wolfVideo/", //我的服务地址 ip 35.163.52.183  ec2-35-163-52-183.us-west-2.compute.amazonaws.com
+        Base: "http://192.168.31.208:8181/wolfVideo/", //开发环境
+        Login:"account/login", //登录
+        Register: "account/register", //注册
+        Info: "account/info", //获取个人信息
+        GetAuthList: "authCodeManager/getAuthList", //邀请码列表
+        AddNewAuthCodes: "authCodeManager/addNewAuthCodes", //添加邀请码
+        GetCollectList: "collects/getCollectList", //获取收藏列表
+        AddNewCollect: "collects/addNewCollect", //收藏
+        CancelCollect: "collects/cancelCollect", //取消收藏
+        GetCollectsCount: "collects/getCollectsCount", //收藏数量
+        CheckIsCollect: "collects/checkIsCollect", //收藏数量
+        UploadAvatar: "upload/avatar", //上传头像
+        UpdateInfo: "account/updateInfo" //更新信息
     }
 
 

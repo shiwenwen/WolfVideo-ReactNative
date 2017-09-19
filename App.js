@@ -34,7 +34,11 @@ import ActorPage from './Components/Category/Actor/ActorPage'
 import ActorVideoPage from './Components/Category/Actor/ActorVideoPage'
 //登录页
 import Login from './Components/Mine/Login/Login'
+//注册
+import Register from './Components/Mine/Login/Register'
 
+// --------------- 持久化----------------
+import './Utils/StorageUtil';
 
 
 /*------------------react-navigation------------------------------*/
@@ -166,6 +170,17 @@ mainTabNavigator.navigationOptions = {
 
 }
 
+
+const transitionConfiguration = () => ({
+    screenInterpolator: (sceneProps) => {
+        const { scene } = sceneProps;
+        const { route } = scene;
+        const params = route.params || {};
+        const transition = params.transition || 'forHorizontal';
+        return CardStackStyleInterpolator[transition](sceneProps);
+    },
+});
+
 // 导航
 const mainstackNavigator = StackNavigator({
    // 首页
@@ -217,15 +232,18 @@ const mainstackNavigator = StackNavigator({
     Login: {
         screen: Login,
         navigationOptions: {
-            header:null
-
+            header:null,
+        }
+    },
+    Register: {
+        screen: Register,
+        navigationOptions: {
+            headerTitle:'注册'
         }
     }
 
 },{
-    transitionConfig:()=>({
-        screenInterpolator:CardStackStyleInterpolator.forHorizontal,
-    }),
+    transitionConfig:transitionConfiguration,
     navigationOptions:{
         headerBackTitle:'返回',
         headerTitleStyle:{
@@ -242,4 +260,6 @@ const styes = StyleSheet.create({
 
     }
 })
+
+
 AppRegistry.registerComponent('WolfVideo', () => mainstackNavigator);

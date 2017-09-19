@@ -411,6 +411,7 @@ const styles = StyleSheet.create({
         right:0,
         bottom:0,
         justifyContent:'space-between',
+        backgroundColor:'rgba(0,0,0,0.8)'
     },
     header: {
         flexDirection:'row',

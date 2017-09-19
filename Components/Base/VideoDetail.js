@@ -13,7 +13,7 @@ import {
     StatusBar,
     ScrollView
 } from 'react-native';
-import HttpUtil from '../../Utils/HttpUtil';
+import HttpUtil,{MyServiceHttpUtil,HttApis} from '../../Utils/HttpUtil';
 const ScreenUtil = require('../../Utils/ScreenUtil')
 import Orientation from 'react-native-orientation';
 import Toast from  'react-native-root-toast';
@@ -32,7 +32,8 @@ export default class  extends Component {
             play_list:[],
             currentUrl:'',
             currentIndex:0,
-            showfullbutton:false
+            showfullbutton:false,
+            userId:null
         }
 
     }
@@ -43,6 +44,7 @@ export default class  extends Component {
     static navigationOptions = ({ navigation }) => ({
 
     });
+
 
 
     render() {
@@ -85,10 +87,16 @@ export default class  extends Component {
             </View>
         );
     }
+
+    /**
+     * 渲染完整播放
+     * @returns {*}
+     * @private
+     */
     _renderFullPlay () {
-        return this.state.showfullbutton ? (<TouchableOpacity onPress={this._fullPlay} style={styles.fullPlay}>
+        return this.state.showfullbutton && this.state.userId ? (<TouchableOpacity onPress={this._fullPlay} style={styles.fullPlay}>
             <Text style={styles.fullPlayText}>播放全集</Text>
-        </TouchableOpacity>) : null
+        </TouchableOpacity>) : <Text style={styles.tip}>未登录用户每小集只能观看一分钟，且不能观看全集</Text>
     }
 
     /**
@@ -174,7 +182,21 @@ export default class  extends Component {
                 })
             }
         });
+        storage.load({
+            key:'userInfo'
+        }).then(info => {
+            this.setState({
+              userId:info.userId
+            })
+            this._requestFavorites(info.userId)
+        },error => {
+
+        })
         this._requestDetailData()
+
+    }
+
+    componentWillMount() {
 
     }
     _orientationDidChange = (orientation) => {
@@ -198,10 +220,16 @@ export default class  extends Component {
         HttpUtil.GET(HttpUtil.APIS.WolfVideoApis.Base+HttpUtil.APIS.WolfVideoApis.VideoDetail+`\\${this.props.navigation.state.params.id}`,{},(response) => {
             const play_list_org = response.play_list
             let play_list = []
-            for (let i = 0; i < play_list_org.length; i ++) {
-                let url = play_list_org[i]
-                play_list.push(url.substring(0,url.indexOf('?')))
+            if (this.state.userId) {
+                for (let i = 0; i < play_list_org.length; i ++) {
+                    let url = play_list_org[i]
+                    play_list.push(url.substring(0,url.indexOf('?')))
+                }
+            }else {
+                play_list = play_list_org
+                Toast.show('未登录用户每小集只能观看一分钟，且不能观看全集')
             }
+
             this._fullUrl = this._getFullUrl(response.full_play)
             console.log(this._fullUrl)
             this.setState({
@@ -215,6 +243,7 @@ export default class  extends Component {
                 play_conver:response.play_conver,
                 showfullbutton:response.showfullbutton
             })
+            this._response = response
         },(error) => {
 
         })
@@ -225,10 +254,89 @@ export default class  extends Component {
      * @private
      */
     _collect = () => {
+        if (!this.state.userId) {
+            Toast.show('请登录后操作')
+            this.props.navigation.navigate('Login',{
+                callback:(userInfo) => {
+                    this.setState({
+                        userId:userInfo.userId
+                    })
+                    this._requestFavorites(userInfo.userId)
+                }
+            })
+            return
+        }
+
+        //请求收藏
+
+        if (this.state.isCollect) {
+            //取消收藏
+
+            MyServiceHttpUtil.Post(HttApis.MyServerApis.Base + HttApis.MyServerApis.CancelCollect,{
+                'userId':this.state.userId,
+                'videoId':this.props.navigation.state.params.id
+            },(data) => {
+                Toast.show(data.txt)
+                if (data.status == 'B0000') {
+                    this.setState({
+                        isCollect: false
+                    })
+                }
+            })
+
+        }else {
+            //收藏
+            MyServiceHttpUtil.Post(HttApis.MyServerApis.Base + HttApis.MyServerApis.AddNewCollect,{
+                'collects': [{
+                    'userId':this.state.userId,
+                    'videoId':this.props.navigation.state.params.id,
+                    'barcode': this._response.barcode,
+                    'title': this._response.title,
+                    'sys_ctime': this._response.sys_ctime,
+                    'cover':this.props.navigation.state.params.cover,
+                    'playcover':this.state.play_conver,
+                    'category':this.props.navigation.state.params.category,
+                    'startdate':this._response.startdate ? this._response.startdate : '',
+                    'up_time':this.props.navigation.state.params.up_time ? this.props.navigation.state.params.up_time : '',
+                    'player':this._response.player ? this._response.player : '',
+                    'play_count':this._response.count ? this._response.count : '',
+                    'cat':this.props.navigation.state.params.cat ? this.props.navigation.state.params.cat : '',
+                    'cat_text':this._response.cat_text ? this._response.cat_text : '',
+                }]
+            },(data) => {
+                Toast.show(data.txt)
+                if (data.status == 'B0000') {
+                    this.setState({
+                        isCollect: true
+                    })
+
+                }
+
+            })
+        }
 
 
     }
 
+    /**
+     * 请求收藏
+     * @private
+     */
+    _requestFavorites(userId) {
+        MyServiceHttpUtil.GET(HttApis.MyServerApis.Base + HttApis.MyServerApis.CheckIsCollect,{
+            'userId':userId,
+            'videoId':this.props.navigation.state.params.id
+        },(data) => {
+            if (data.status == 'B0000') {
+                this.setState({
+                    isCollect: data.isCollect == 1
+                })
+            }else {
+                Toast.show(data.txt)
+            }
+
+        })
+    }
     /**
      * 选择分集
      * @param index
@@ -345,5 +453,12 @@ const styles = StyleSheet.create({
     fullPlayText: {
         color:'white',
         fontSize:17
+    },
+    tip: {
+        marginVertical:40,
+        marginHorizontal:30,
+        color:'red',
+        textAlign:'center'
+
     }
 });

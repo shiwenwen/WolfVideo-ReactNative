@@ -71,7 +71,11 @@ export default class ActorVideoPage extends Component {
                 player:state.params.title,
                 sys_ctime:model.sys_ctime,
                 cat_text:model.cat_text,
-                count:0
+                count:0,
+                cover:model.cover,
+                up_time: model.up_time,
+                category: model.category,
+                cat: model.cat
             }
         )
 

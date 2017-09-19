@@ -103,7 +103,11 @@ export default class SearchPage extends Component {
                 player:model.player,
                 sys_ctime:model.sys_ctime,
                 cat_text:model.cat_text,
-                count:model.count
+                count:model.count,
+                cover:model.cover,
+                up_time: model.up_time,
+                category: model.category,
+                cat: model.cat
             }
         )
     }

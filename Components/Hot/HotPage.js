@@ -56,11 +56,14 @@ export default class HotPage extends Component {
     }
 
     componentDidMount() {
+        // storage.remove({key:'userInfo'})
+        this._checkLogin()
         SplashScreen.hide()
-        this._requestHotData(true)
+        // this._requestHotData(true)
         if (Platform.OS === 'android') {
             BackHandler.addEventListener('handwareBackPress',this.onBackAndroid)
         }
+
 
     }
 
@@ -96,9 +99,7 @@ export default class HotPage extends Component {
                 </Swiper >
                 <TouchableOpacity style={styles.search} onPress={() => {
                     const { navigate } = this.props.navigation;
-                    navigate('Login')
-                    return
-                    this.props.navigation.navigate('SearchPage')
+                    navigate('SearchPage')
                 }}>
                     <Icon name='search' size={20}/>
                     <Text style={styles.searchTip}>搜索您想看的影片</Text>
@@ -143,7 +144,11 @@ export default class HotPage extends Component {
                 player:model.player,
                 sys_ctime:model.sys_ctime,
                 cat_text:model.cat_text,
-                count:model.count
+                count:model.count,
+                cover:model.cover,
+                up_time: model.up_time,
+                category: model.category,
+                cat: model.cat
             }
         )
     }
@@ -180,6 +185,36 @@ export default class HotPage extends Component {
                 isRefreshing:false
             })
         },showHUD,49)
+    }
+
+    /**
+     * 检查登录
+     * @private
+     */
+    _checkLogin() {
+        storage.load({
+            key:'userInfo'
+        }).then(data => {
+            console.log(data)
+            if (!data) {
+                this.props.navigation.navigate('Login',{
+                    transition: 'forVertical'
+                })
+                this._requestHotData(false)
+            }else {
+                this._requestHotData(true)
+            }
+        },error => {
+            console.log(error)
+            if ( error.name == 'NotFoundError' ) {
+                this.props.navigation.navigate('Login',{
+                    transition: 'forVertical'
+                })
+                this._requestHotData(false)
+            }else {
+                this._requestHotData(true)
+            }
+        })
     }
 }
 
