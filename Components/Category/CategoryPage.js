@@ -62,16 +62,18 @@ export default class CategoryPage extends Component {
         // console.log(info,index)
         return <TouchableOpacity style={styles.item} onPress={() => {
             const {section} = info
-            console.log(section)
+            const {navigate} = this.props.navigation
+            // console.log(section)
             switch (section.sec) {
                 case 0: {
-
-                } break
+                    navigate('ActorPage')
+                    break
+                }
                 case 1: {
-                    this.props.navigation.navigate('CategoryDetailPage',{title:info.item.title,catId:info.item.id})
+                    // navigate('CategoryDetailPage',{title:info.item.title,catId:info.item.id})
                 }
                 case 2: {
-                    this.props.navigation.navigate('CategoryDetailPage',{title:info.item.title,catId:info.item.id})
+                    navigate('CategoryDetailPage',{title:info.item.title,catId:info.item.id})
                 }
             }
         }}>

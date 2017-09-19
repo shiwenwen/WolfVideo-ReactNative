@@ -54,7 +54,7 @@ export default class  extends Component {
                 }
                 {/* 海报图 */}
                 {
-                    this._renderPlayer_cover()
+                    // this._renderPlayer_cover()
                 }
                 <ScrollView>
                     {/* 标题*/}
@@ -145,7 +145,10 @@ export default class  extends Component {
         return this.state.currentUrl ? (<Video style={[styles.video,{height:this.state.videoHeight}]} goBack={this._goBack} source={{uri:this.state.currentUrl}}
                        title={this.state.title + + `(${this.state.cat_text})_${this.state.currentIndex+1}`}
                        // poster={this.state.play_conver}
-                       />) : null
+                       />) : (<ImageBackground source={require('../../sources/imgs/imagePlaceholder.png')} resizeMode='stretch'
+                                               style={styles.video}>
+            <Image source={{uri:this.state.play_conver}} resizeMode='cover' style={styles.play_conver}></Image>
+        </ImageBackground>)
     }
 
     /**

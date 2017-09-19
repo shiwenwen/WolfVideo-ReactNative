@@ -28,6 +28,14 @@ import CategoryPage from "./Components/Category/CategoryPage";
 import MinePage from "./Components/Mine/MinePage";
 //搜索页
 import SearchPage from './Components/Hot/SearchPage'
+//演员列表页
+import ActorPage from './Components/Category/Actor/ActorPage'
+//演员视频页
+import ActorVideoPage from './Components/Category/Actor/ActorVideoPage'
+//登录页
+import Login from './Components/Mine/Login/Login'
+
+
 
 /*------------------react-navigation------------------------------*/
 import { StackNavigator,TabNavigator } from 'react-navigation';
@@ -186,6 +194,32 @@ const mainstackNavigator = StackNavigator({
      */
     CategoryDetailPage: {
        screen: CategoryDetailPage
+    },
+    /**
+     * 演员列表页
+     */
+    ActorPage: {
+        screen: ActorPage,
+        navigationOptions: {
+            headerTitle:'演员列表',
+
+        }
+    },
+    /**
+     * 演员视频页
+     */
+    ActorVideoPage: {
+        screen: ActorVideoPage
+    },
+    /**
+     * 登录
+     */
+    Login: {
+        screen: Login,
+        navigationOptions: {
+            header:null
+
+        }
     }
 
 },{

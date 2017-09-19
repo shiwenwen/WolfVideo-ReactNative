@@ -61,6 +61,7 @@ export default class HotPage extends Component {
         if (Platform.OS === 'android') {
             BackHandler.addEventListener('handwareBackPress',this.onBackAndroid)
         }
+
     }
 
     componentWillUnmount() {
@@ -94,6 +95,9 @@ export default class HotPage extends Component {
                     {/*搜索框*/}
                 </Swiper >
                 <TouchableOpacity style={styles.search} onPress={() => {
+                    const { navigate } = this.props.navigation;
+                    navigate('Login')
+                    return
                     this.props.navigation.navigate('SearchPage')
                 }}>
                     <Icon name='search' size={20}/>

@@ -14,15 +14,16 @@ import {
 } from 'react-native';
 import HttpUtil from '../../Utils/HttpUtil';
 import VideoListItem from '../Base/VideoListItem';
+import Toast from 'react-native-root-toast'
 export default class SearchPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            key:'',
             resultData:[],
 
         }
     }
+    _key = ''
     render() {
         return (
             <ScrollView style={styles.container}>
@@ -36,6 +37,7 @@ export default class SearchPage extends Component {
                         underlineColorAndroid="transparent"
                         autoCorrect={false}
                         returnKeyType='search'
+                        clearButtonMode='while-editing'
                     ></TextInput>
                     <Text style={styles.cancel} onPress={() => {
                         this.props.navigation.goBack()
@@ -62,12 +64,14 @@ export default class SearchPage extends Component {
      * @private
      */
     _onChangeText = (text) => {
-        this.setState({
-            key:text
-        })
+        this._key = text
     }
     _onSubmitEditing = () => {
-        const url = encodeURI(HttpUtil.APIS.WolfVideoApis.Base+HttpUtil.APIS.WolfVideoApis.Search+`/${this.state.key}`)
+        if (this._key.trim().length < 1) {
+            Toast.show('请输入关键词')
+            return
+        }
+        const url = encodeURI(HttpUtil.APIS.WolfVideoApis.Base+HttpUtil.APIS.WolfVideoApis.Search+`/${this._key}`)
         HttpUtil.GET(url,{},(response) => {
 
             this.setState({
