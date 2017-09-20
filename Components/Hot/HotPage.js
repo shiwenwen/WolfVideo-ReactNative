@@ -22,6 +22,7 @@ import VideoListItem from '../Base/VideoListItem';
 import EmptyView from '../Base/EmptyView'
 const ScreenUtil = require('../../Utils/ScreenUtil');
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { HUD } from '../Widgets/LoadingIndicator';
 export default class HotPage extends Component {
 
     constructor(props) {
@@ -29,11 +30,11 @@ export default class HotPage extends Component {
         this.state = {
             hotDataList:[],
             headerData:[],
-            isRefreshing:false
+            isRefreshing:false,
+            showHUD: true
         }
     }
     render() {
-        // return this._renderHeader()
         return (
             <View style={styles.container}>
                 {/*ListView*/}
@@ -49,32 +50,28 @@ export default class HotPage extends Component {
                     ItemSeparatorComponent={this._renderItemSeparatorComponent}
                     ListHeaderComponent={this._renderHeader}
                     ListEmptyComponent={<EmptyView onPress={this._onRefresh}/>}
-            >
+                >
                 </FlatList>
+                {
+                    this.state.showHUD ? <HUD title={'拼命加载中...'}/> : null
+                }
             </View>
         );
     }
 
     componentDidMount() {
-        // storage.remove({key:'userInfo'})
         this._checkLogin()
+        this._requestHotData()
         SplashScreen.hide()
-        // this._requestHotData(true)
-        if (Platform.OS === 'android') {
-            BackHandler.addEventListener('handwareBackPress',this.onBackAndroid)
-        }
+
 
 
     }
 
     componentWillUnmount() {
-        if (Platform.OS === 'android') {
-            BackHandler.addEventListener('handwareBackPress',this.onBackAndroid)
-        }
+
     }
-    onBackAndroid = () => {
-        // return true
-    }
+
 
 
     /*渲染头部*/
@@ -164,10 +161,10 @@ export default class HotPage extends Component {
         this.setState({
             isRefreshing:true
         })
-        this._requestHotData(false)
+        this._requestHotData()
     }
     /*请求数据*/
-    _requestHotData(showHUD){
+    _requestHotData(){
 
         HttpUtil.GET(HttpUtil.APIS.WolfVideoApis.Base+HttpUtil.APIS.WolfVideoApis.HostList,{},(response) => {
             let wrapper = []
@@ -178,13 +175,15 @@ export default class HotPage extends Component {
                 isRefreshing:false,
                 hotDataList:response.rows,
                 headerData:wrapper,
+                showHUD: false
             })
 
         },(error) => {
             this.setState({
-                isRefreshing:false
+                isRefreshing:false,
+                showHUD: false
             })
-        },showHUD,49)
+        },false)
     }
 
     /**
@@ -200,9 +199,6 @@ export default class HotPage extends Component {
                 this.props.navigation.navigate('Login',{
                     transition: 'forVertical'
                 })
-                this._requestHotData(false)
-            }else {
-                this._requestHotData(true)
             }
         },error => {
             console.log(error)
@@ -210,9 +206,6 @@ export default class HotPage extends Component {
                 this.props.navigation.navigate('Login',{
                     transition: 'forVertical'
                 })
-                this._requestHotData(false)
-            }else {
-                this._requestHotData(true)
             }
         })
     }

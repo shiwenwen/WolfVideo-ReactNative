@@ -12,18 +12,20 @@ import {
 } from 'react-native';
 import HttpUtil from '../../Utils/HttpUtil';
 import Icon from 'react-native-vector-icons/FontAwesome'
-import EmptyView from '../Base/EmptyView'
+import EmptyView from '../Base/EmptyView';
+import { HUD } from '../Widgets/LoadingIndicator';
 export default class CategoryPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
             category:[],
-            isRefreshing:false
+            isRefreshing:false,
+            showHUD:true
         }
     }
 
     componentDidMount() {
-        this._requestCategory(true)
+        this._requestCategory()
     }
     render() {
         return (
@@ -45,8 +47,10 @@ export default class CategoryPage extends Component {
 
                     }}
                 >
-
                 </SectionList>
+                {
+                    this.state.showHUD ? <HUD title={'拼命加载中...'}/> : null
+                }
             </View>
         );
     }
@@ -78,7 +82,7 @@ export default class CategoryPage extends Component {
             }
         }}>
             <Text style={styles.itemTitle}>{info.item.title+(info.item.count > 0 ? `(${info.item.count})` : '')}</Text>
-            <Icon name='chevron-right' size={15} backgroundColor='#d9d9d9' style={styles.itemTitleIcon}/>
+            <Icon name='chevron-right' size={15} style={styles.itemTitleIcon}/>
         </TouchableOpacity>
     }
     /**
@@ -97,10 +101,10 @@ export default class CategoryPage extends Component {
         this.setState({
             isRefreshing:true
         })
-        this._requestCategory(false)
+        this._requestCategory()
     }
     /*请求数据*/
-    _requestCategory(showHUD){
+    _requestCategory(){
 
         HttpUtil.GET(HttpUtil.APIS.WolfVideoApis.Base+HttpUtil.APIS.WolfVideoApis.Category,{},(response) => {
 
@@ -110,14 +114,16 @@ export default class CategoryPage extends Component {
                     {data:[{title:'演员列表',id:0,count:0}], title:'演员分类',sec:0},
                     {data:response.rows_2, title:'无码高清',sec:1},
                     {data:response.rows_1, title:'剧情薄码',sec:2}
-                ]
+                ],
+                showHUD:false
             })
 
         },(error) => {
             this.setState({
-                isRefreshing:false
+                isRefreshing:false,
+                showHUD:false
             })
-        },showHUD,49)
+        },false)
     }
 
 }

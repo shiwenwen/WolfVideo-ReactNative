@@ -116,7 +116,8 @@ const mainTabNavigator = TabNavigator({
         screen: MinePage,
         navigationOptions:{
             tabBarLabel: '我的',
-            header:null,
+            headerTitle: '我',
+            headerLeft:<View/>, //使标题偏移居中
             tabBarIcon: ({tintColor,focused}) => (
                 focused ?
                     <Image

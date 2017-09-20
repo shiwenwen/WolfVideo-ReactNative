@@ -38,7 +38,16 @@ import RootSiblings from 'react-native-root-siblings';
 /**
  * 加载指示器
  */
-
+/**
+ * 位置
+ * @type {{left: number, right: (number|string), top: Window, bottom: (number|string)}}
+ */
+export type Position = {
+    left: number,
+    right: number,
+    top: number,
+    bottom: number
+}
 export default class LoadingIndicator {
     /*标题*/
     static _title
@@ -48,7 +57,8 @@ export default class LoadingIndicator {
     static _color
     /*尺寸*/
     static  _size
-    static _bottom
+    /*位置*/
+    static _postion
     /*当前指示器*/
     static _currentIndicator = null
 
@@ -60,21 +70,21 @@ export default class LoadingIndicator {
      * @param size
      * @returns RootSiblings
      */
-    static show(title: string,bottom : number = 0,type: string = 'Wave',color: string = '#4AD5BD',size: number = 50) {
+    static show(title: string,postion:Position = {left:0,right:0,top:0,bottom:0},type: string = 'Wave',color: string = '#4AD5BD',size: number = 50) {
         LoadingIndicator._title = title
         LoadingIndicator._type = type
         LoadingIndicator._color = color
         LoadingIndicator._size = size
-        LoadingIndicator._bottom = bottom
+        LoadingIndicator._postion = postion
         if (LoadingIndicator._currentIndicator) {
             // console.log('销毁菊花')
             // LoadingIndicator._currentIndicator.destroy()
             LoadingIndicator._currentIndicator.update(<HUD type={LoadingIndicator._type} title={LoadingIndicator._title} color={LoadingIndicator._color} size={LoadingIndicator._size}
-                                                           bottom={LoadingIndicator._bottom}></HUD>)
+                                                           style={{...LoadingIndicator._postion}}></HUD>)
             return
         }
         LoadingIndicator._currentIndicator = new RootSiblings(<HUD type={LoadingIndicator._type} title={LoadingIndicator._title} color={LoadingIndicator._color} size={LoadingIndicator._size}
-                                                                   bottom={LoadingIndicator._bottom}></HUD>)
+                                                                   style={{...LoadingIndicator._postion}}></HUD>)
 
     }
 
@@ -82,7 +92,6 @@ export default class LoadingIndicator {
      * 隐藏加载指示器
      */
     static hidden() {
-        // LoadingIndicator._currentIndicator.update(<HUD type={LoadingIndicator._type} title={LoadingIndicator._title} color={LoadingIndicator._color} size={LoadingIndicator._size} willHidden={true} siblingManager={LoadingIndicator._currentIndicator} bottom={LoadingIndicator._bottom}></HUD>)
         LoadingIndicator._currentIndicator.destroy()
     }
 
@@ -93,7 +102,7 @@ export default class LoadingIndicator {
     static updateTitle(title: string) {
         LoadingIndicator._title = title
         LoadingIndicator._currentIndicator.update(<HUD type={LoadingIndicator._type} title={LoadingIndicator._title} color={LoadingIndicator._color} size={LoadingIndicator._size}
-                                                       bottom={LoadingIndicator._bottom}></HUD>)
+                                                       style={{...LoadingIndicator._postion}}></HUD>)
     }
 }
 
@@ -103,7 +112,6 @@ export class HUD extends Component {
         type: 'Wave',
         color: '#4AD5BD',
         size: 50,
-        bottom:0
     }
     static propTypes = {
         //样式
@@ -112,7 +120,6 @@ export class HUD extends Component {
         size: Protypes.number,
         title: Protypes.string,
         willHidden: Protypes.bool,
-        bottom:Protypes.number,
     }
     constructor(props) {
         super(props)
@@ -122,7 +129,7 @@ export class HUD extends Component {
     }
     render() {
         return (
-            <Animated.View style={[styles.container,{opacity:this.state.opacity,bottom:this.props.bottom}]}>
+            <Animated.View style={[styles.container,{opacity:this.state.opacity},this.props.style]}>
                 <Spinner type={this.props.type} size={this.props.size} color={this.props.color}/>
                 {this._renderTextView()}
             </Animated.View>
@@ -182,7 +189,7 @@ const styles = StyleSheet.create({
         bottom:0,
         backgroundColor: 'rgba(0,0,0,0.3)',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     title: {
         color: 'white',

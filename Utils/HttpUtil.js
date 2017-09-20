@@ -28,9 +28,9 @@ export default class HttpUtil {
      * @param timeout 超时时间 默认60秒
      * @constructor
      */
-    static Post(url: string,params: JSON,successCallback: Function,failureCallback: Function = function(error){},showHUD: boolean = true,hudBottom : number = 0,timeout: number = 60000) {
+    static Post(url: string,params: JSON,successCallback: Function,failureCallback: Function = function(error){},showHUD: boolean = true,timeout: number = 60000) {
         if (showHUD) {
-            LoadingIndicator.show(null,hudBottom)
+            LoadingIndicator.show('拼命加载中...')
 
         }
         NetInfo.fetch().done((state) => {
@@ -66,7 +66,7 @@ export default class HttpUtil {
                     }
 
                     Toast.show('请求失败\n' + error.message)
-                    console.error(error)
+                    console.log(error)
                     failureCallback(error)
                 })
 
@@ -91,9 +91,9 @@ export default class HttpUtil {
      * @param timeout 超时时间 默认60秒
      * @constructor
      */
-    static GET(url: string,params: JSON,successCallback: Function,failureCallback: Function = function(error){},showHUD: boolean = true,hudBottom : number = 0, timeout: number = 60000){
+    static GET(url: string,params: JSON,successCallback: Function,failureCallback: Function = function(error){},showHUD: boolean = true, timeout: number = 60000){
         if (showHUD) {
-            LoadingIndicator.show(null,hudBottom)
+            LoadingIndicator.show('拼命加载中...')
         }
         NetInfo.fetch().done((state) => {
             if (state == 'none') {
@@ -132,7 +132,7 @@ export default class HttpUtil {
                         LoadingIndicator.hidden()
                     }
                     Toast.show('请求失败\n' + error.message)
-                    console.error(error)
+                    console.log(error)
                     failureCallback(error)
                 })
 
@@ -162,9 +162,9 @@ export  class MyServiceHttpUtil {
      * @param timeout 超时时间 默认60秒
      * @constructor
      */
-    static Post(url: string,params: JSON,successCallback: Function,failureCallback: Function = function(error){},showHUD: boolean = true,hudBottom : number = 0,timeout: number = 60000) {
+    static Post(url: string,params: JSON,successCallback: Function,failureCallback: Function = function(error){},showHUD: boolean = true,timeout: number = 60000) {
         if (showHUD) {
-            LoadingIndicator.show(null,hudBottom)
+            LoadingIndicator.show('拼命加载中...')
 
         }
 
@@ -212,7 +212,7 @@ export  class MyServiceHttpUtil {
                     if (showHUD) {
                         LoadingIndicator.hidden()
                     }
-                    console.error(error)
+                    console.log(error)
                     Toast.show('请求失败\n' + error.message)
                     failureCallback(error)
                 })
@@ -238,9 +238,9 @@ export  class MyServiceHttpUtil {
      * @param timeout 超时时间 默认60秒
      * @constructor
      */
-    static GET(url: string,params: JSON,successCallback: Function,failureCallback: Function = function(error){},showHUD: boolean = true,hudBottom : number = 0, timeout: number = 60000){
+    static GET(url: '',params: JSON,successCallback: Function,failureCallback: Function = function(error){},showHUD: boolean = true, timeout: number = 60000){
         if (showHUD) {
-            LoadingIndicator.show(null,hudBottom)
+            LoadingIndicator.show('拼命加载中...')
         }
         NetInfo.fetch().done((state) => {
             if (state == 'none') {
@@ -264,8 +264,6 @@ export  class MyServiceHttpUtil {
                 }else {
                     paramsStr = ''
                 }
-
-
                 fetch(url+paramsStr,{
                     method:'GET',
                     credentials:'include',
@@ -291,7 +289,7 @@ export  class MyServiceHttpUtil {
                         LoadingIndicator.hidden()
                     }
                     Toast.show('请求失败\n' + error.message)
-                    console.error(error)
+                    console.log(error)
                     failureCallback(error)
                 })
 

@@ -13,14 +13,16 @@ import {
 } from 'react-native';
 import HttpUtil from '../../Utils/HttpUtil';
 import VideoListItem from '../Base/VideoListItem';
-import EmptyView from '../Base/EmptyView'
+import EmptyView from '../Base/EmptyView';
+import { HUD } from '../Widgets/LoadingIndicator';
 export default class NewPage extends Component {
     static navigationOptions = ({navigation}) => {}
     constructor(props) {
         super(props)
         this.state = {
             newDataList:[],
-            isRefreshing:false
+            isRefreshing:false,
+            showHUD: true
         }
     }
     render() {
@@ -40,12 +42,15 @@ export default class NewPage extends Component {
                     ListEmptyComponent={<EmptyView onPress={this._onRefresh}/>}
                 >
                 </FlatList>
+                {
+                    this.state.showHUD ? <HUD title={'拼命加载中...'}/> : null
+                }
             </View>
         )
     }
 
     componentDidMount() {
-        this._requestNewData(true)
+        this._requestNewData()
     }
     /*渲染列表Item*/
     _renderItem = (info) => {
@@ -88,24 +93,25 @@ export default class NewPage extends Component {
         this.setState({
             isRefreshing:true
         })
-        this._requestNewData(false)
+        this._requestNewData()
     }
     /*请求数据*/
-    _requestNewData(showHUD){
+    _requestNewData(){
 
         HttpUtil.GET(HttpUtil.APIS.WolfVideoApis.Base+HttpUtil.APIS.WolfVideoApis.NewList,{},(response) => {
 
             this.setState({
                 isRefreshing:false,
                 newDataList:response.rows,
-
+                showHUD:false
             })
 
         },(error) => {
             this.setState({
-                isRefreshing:false
+                isRefreshing:false,
+                showHUD:false
             })
-        },showHUD,49)
+        },false)
     }
 
 }

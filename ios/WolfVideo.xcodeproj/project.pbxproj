@@ -43,6 +43,7 @@
 		347CEFC25842443985EAA1B7 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5368C1D03C743BDB770869E /* Ionicons.ttf */; };
 		40D883D728B844A69F5FD91D /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2568BCE384624F4DB85E49C7 /* libSplashScreen.a */; };
 		43B660F3541A434BBD64F115 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A0EC701364B494CA5021871 /* Foundation.ttf */; };
+		561D6DCB00FF43C89E8A1D3E /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED67553514C4C989503EB5F /* libRNImagePicker.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		685DA4CF979A4A2C9581547A /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4D35E3157A034EAB99D2D0CF /* MaterialIcons.ttf */; };
 		74B1062D1C474592B7B07315 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2293662B724349228ECBCAE9 /* libRNVectorIcons.a */; };
@@ -282,6 +283,13 @@
 			remoteGlobalIDString = DA5891D81BA9A9FC002B4DB2;
 			remoteInfo = RNDeviceInfo;
 		};
+		88638BB01F72632D00B2A051 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84F91DB75F924642BFDB884C /* RNImagePicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 014A3B5C1C6CF33500B6D375;
+			remoteInfo = RNImagePicker;
+		};
 		88EBD8B01F55514700E77E4D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -364,12 +372,14 @@
 		311B87B1B7D14537BAE332C9 /* libRCTVideo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTVideo.a; sourceTree = "<group>"; };
 		3D0759F93A1849AB8317FAD0 /* RNSpinkit.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSpinkit.xcodeproj; path = "../node_modules/react-native-spinkit/ios/RNSpinkit.xcodeproj"; sourceTree = "<group>"; };
 		4D35E3157A034EAB99D2D0CF /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		4ED67553514C4C989503EB5F /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		51740C5150310E0C7DE3EDA2 /* libPods-WolfVideo-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WolfVideo-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A91FE4D0F44E6BFE8702A5B /* Pods-WolfVideo-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WolfVideo-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WolfVideo-tvOSTests/Pods-WolfVideo-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6A0EC701364B494CA5021871 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		84F91DB75F924642BFDB884C /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		8D53C4237D074779A1CF4999 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		902549CC3890477DA44F3879 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		9201F29EDB15001E731B880D /* libPods-WolfVideo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WolfVideo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -423,6 +433,7 @@
 				EB86858780B05F347FF202D4 /* libPods-WolfVideo.a in Frameworks */,
 				013D1710F7E14ADC8809D937 /* libRNSpinkit.a in Frameworks */,
 				D53914527E3A471BBEAC2DB7 /* libRNDeviceInfo.a in Frameworks */,
+				561D6DCB00FF43C89E8A1D3E /* libRNImagePicker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -613,6 +624,7 @@
 				FD12AC12B8154CD49D9BDF30 /* RCTOrientation.xcodeproj */,
 				3D0759F93A1849AB8317FAD0 /* RNSpinkit.xcodeproj */,
 				E2CB4B2F271541CBA649B327 /* RNDeviceInfo.xcodeproj */,
+				84F91DB75F924642BFDB884C /* RNImagePicker.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -636,6 +648,7 @@
 				99E53608EE164372A8140939 /* Resources */,
 				0D69A2A298E13D142CCC263E /* Pods */,
 				E549BB7FD4FF30F89C6307EA /* Frameworks */,
+				88638B871F72632C00B2A051 /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -681,6 +694,28 @@
 			isa = PBXGroup;
 			children = (
 				8846FB1F1F691E1A00181F1E /* libRNDeviceInfo.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		88638B871F72632C00B2A051 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				2568BCE384624F4DB85E49C7 /* libSplashScreen.a */,
+				311B87B1B7D14537BAE332C9 /* libRCTVideo.a */,
+				2293662B724349228ECBCAE9 /* libRNVectorIcons.a */,
+				E12C53024E144F019246732E /* libRCTOrientation.a */,
+				E11DC3D061DE464EA19F7B1D /* libRNSpinkit.a */,
+				D779A70BBBA24CB49CDE9512 /* libRNDeviceInfo.a */,
+				4ED67553514C4C989503EB5F /* libRNImagePicker.a */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		88638BAD1F72632D00B2A051 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				88638BB11F72632D00B2A051 /* libRNImagePicker.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -908,6 +943,10 @@
 				{
 					ProductGroup = 8846FAFB1F691E1A00181F1E /* Products */;
 					ProjectRef = E2CB4B2F271541CBA649B327 /* RNDeviceInfo.xcodeproj */;
+				},
+				{
+					ProductGroup = 88638BAD1F72632D00B2A051 /* Products */;
+					ProjectRef = 84F91DB75F924642BFDB884C /* RNImagePicker.xcodeproj */;
 				},
 				{
 					ProductGroup = 8846FABB1F6919C400181F1E /* Products */;
@@ -1141,6 +1180,13 @@
 			fileType = archive.ar;
 			path = libRNDeviceInfo.a;
 			remoteRef = 8846FB1E1F691E1A00181F1E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		88638BB11F72632D00B2A051 /* libRNImagePicker.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNImagePicker.a;
+			remoteRef = 88638BB01F72632D00B2A051 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		88EBD8B11F55514700E77E4D /* libthird-party.a */ = {
@@ -1485,12 +1531,14 @@
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
 					"$(SRCROOT)/../node_modules/react-native-spinkit/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = WolfVideoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1518,12 +1566,14 @@
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
 					"$(SRCROOT)/../node_modules/react-native-spinkit/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = WolfVideoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1553,6 +1603,7 @@
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
 					"$(SRCROOT)/../node_modules/react-native-spinkit/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = WolfVideo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1583,6 +1634,7 @@
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
 					"$(SRCROOT)/../node_modules/react-native-spinkit/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = WolfVideo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1617,11 +1669,13 @@
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
 					"$(SRCROOT)/../node_modules/react-native-spinkit/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = "WolfVideo-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1657,11 +1711,13 @@
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
 					"$(SRCROOT)/../node_modules/react-native-spinkit/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 				INFOPLIST_FILE = "WolfVideo-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1695,6 +1751,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.WolfVideo-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1720,6 +1777,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
