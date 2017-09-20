@@ -18,6 +18,7 @@ import {
 import Toast from 'react-native-root-toast';
 import Icon from 'react-native-vector-icons/FontAwesome';
 const ImagePicker = require('react-native-image-picker');
+import ImageCropPicker from 'react-native-image-crop-picker';
 export default class MinePage extends Component {
 
     constructor(props) {
@@ -170,9 +171,15 @@ export default class MinePage extends Component {
                 console.log('ImagePicker Error: ', response.error);
             }
             else {
-
-                this.setState({
-                    avatar: response.uri
+                ImageCropPicker.openCropper({
+                    path: response.uri,
+                    width: 300,
+                    height: 300
+                }).then(image => {
+                    console.log(image);
+                    this.setState({
+                        avatar:image.path
+                    });
                 });
             }
         });

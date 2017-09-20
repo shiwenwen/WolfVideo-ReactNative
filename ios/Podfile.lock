@@ -1,12 +1,18 @@
 PODS:
   - IQKeyboardManager (4.0.13)
+  - QBImagePickerController (3.4.0)
+  - RSKImageCropper (1.6.3)
 
 DEPENDENCIES:
   - IQKeyboardManager
+  - QBImagePickerController
+  - RSKImageCropper
 
 SPEC CHECKSUMS:
   IQKeyboardManager: 8eab4d8111418414619d1df8e4779ce5d0f8d7e2
+  QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
+  RSKImageCropper: 356e36fc58c57c371b5d8b23d603936d6a73df6c
 
-PODFILE CHECKSUM: 1767635976dc4b247e3fb78800734cb4d6ef554c
+PODFILE CHECKSUM: dd89cbb4cd34d8f6e61b52f98ba26c174e86d2b5
 
 COCOAPODS: 1.2.1
