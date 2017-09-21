@@ -196,9 +196,7 @@ export default class  extends Component {
 
     }
 
-    componentWillMount() {
 
-    }
     _orientationDidChange = (orientation) => {
         console.log('当前屏幕方向 : ' + orientation)
 
@@ -289,18 +287,18 @@ export default class  extends Component {
             MyServiceHttpUtil.Post(HttApis.MyServerApis.Base + HttApis.MyServerApis.AddNewCollect,{
                 'collects': [{
                     'userId':this.state.userId,
-                    'videoId':this.props.navigation.state.params.id,
+                    'videoId':this.state.id,
                     'barcode': this._response.barcode,
                     'title': this._response.title,
                     'sys_ctime': this._response.sys_ctime,
-                    'cover':this.props.navigation.state.params.cover,
+                    'cover':this.state.cover,
                     'playcover':this.state.play_conver,
-                    'category':this.props.navigation.state.params.category,
+                    'category':this.state.category,
                     'startdate':this._response.startdate ? this._response.startdate : '',
-                    'up_time':this.props.navigation.state.params.up_time ? this.props.navigation.state.params.up_time : '',
+                    'up_time':this.state.up_time ? this.state.up_time : '',
                     'player':this._response.player ? this._response.player : '',
                     'play_count':this._response.count ? this._response.count : '',
-                    'cat':this.props.navigation.state.params.cat ? this.props.navigation.state.params.cat : '',
+                    'cat':this.state.cat ? this.state.cat : '',
                     'cat_text':this._response.cat_text ? this._response.cat_text : '',
                 }]
             },(data) => {

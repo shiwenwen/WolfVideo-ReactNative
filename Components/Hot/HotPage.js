@@ -13,7 +13,8 @@ import {
     Platform,
     BackHandler,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
+    StatusBar
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import Swiper from 'react-native-swiper';
@@ -37,6 +38,9 @@ export default class HotPage extends Component {
     render() {
         return (
             <View style={styles.container}>
+                {
+                    Platform.OS == 'android' ? <StatusBar backgroundColor='white' barStyle="dark-content"  />  : null
+                }
                 {/*ListView*/}
                 <FlatList
                     data={this.state.hotDataList}

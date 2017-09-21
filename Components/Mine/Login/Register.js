@@ -14,7 +14,8 @@ import {
     Platform,
     Button,
     Text,
-    TouchableOpacity
+    TouchableOpacity,
+    DeviceEventEmitter
 } from 'react-native';
 const ScreenUtil = require('../../../Utils/ScreenUtil');
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -154,8 +155,7 @@ export default class Register  extends Component {
      * @private
      */
     _register = () => {
-        this.props.navigation.goBack(this.props.navigation.state.params.backKey)
-        return
+
         if (!checkIsPhoneNum(this._mobile)) {
             Toast.show('请输入正确手机号')
             return
@@ -199,7 +199,8 @@ export default class Register  extends Component {
                     }
                 }).then((result) => {
                     console.log(this.props.navigation)
-                    this.props.navigation.goBack()
+                    DeviceEventEmitter.emit('LoginSuccess',data.userId)
+                    this.props.navigation.goBack(this.props.navigation.state.params.backKey)
                 })
             }
         })

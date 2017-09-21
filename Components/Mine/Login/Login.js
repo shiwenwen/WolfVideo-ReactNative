@@ -14,7 +14,8 @@ import {
     Platform,
     Button,
     Text,
-    TouchableOpacity
+    TouchableOpacity,
+    DeviceEventEmitter
 } from 'react-native';
 const ScreenUtil = require('../../../Utils/ScreenUtil');
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -145,6 +146,7 @@ export default class Login  extends Component {
                         psd:this._psd
                     }
                 }).then((result) => {
+                    DeviceEventEmitter.emit('LoginSuccess',data.userId)
                     this.props.navigation.state.params.callback && this.props.navigation.state.params.callback(data.userId)
                     this.props.navigation.goBack()
                 })

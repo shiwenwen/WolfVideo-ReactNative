@@ -9,7 +9,9 @@ import {
     Text,
     ScrollView,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    DeviceEventEmitter,
+    Platform
 } from 'react-native';
 import {
     MyServiceHttpUtil,
@@ -19,6 +21,10 @@ import Toast from 'react-native-root-toast';
 import Icon from 'react-native-vector-icons/FontAwesome';
 const ImagePicker = require('react-native-image-picker');
 import ImageCropPicker from 'react-native-image-crop-picker';
+const hex_md5 = require('../../Utils/md5').hex_md5;
+import DeviceInfo from 'react-native-device-info';
+import  {HUD}  from "../Widgets/LoadingIndicator";
+import LoadingIndicator from "../Widgets/LoadingIndicator";
 export default class MinePage extends Component {
 
     constructor(props) {
@@ -45,9 +51,9 @@ export default class MinePage extends Component {
                       {/* 信息*/}
                       <View style={styles.info}>
                           {/*手机号*/}
-                          <Text style={styles.name}>{this.state.name}</Text>
+                          <Text style={styles.name} onPress={this._checkLogin}>{this.state.name}</Text>
                           {/*手机号*/}
-                          <Text style={styles.mobile}>{this.state.mobile}</Text>
+                          <Text style={styles.mobile} onPress={this._checkLogin}>{this.state.mobile}</Text>
                       </View>
                   </View>
                   {/* ---列表项-----*/}
@@ -74,7 +80,17 @@ export default class MinePage extends Component {
         );
     }
 
-    componentWillMount() {
+    componentDidMount() {
+        this._loadInfo()
+        this.emittr = DeviceEventEmitter.addListener('LoginSuccess',() => {
+            this._loadInfo()
+        })
+    }
+
+    componentWillUnmount() {
+        this.emittr.remove()
+    }
+    _loadInfo() {
         storage.load({
             key:'userInfo'
         }).then(info => {
@@ -97,7 +113,27 @@ export default class MinePage extends Component {
             this._userId = null
         })
     }
+    componentWillMount() {
 
+    }
+
+    /**
+     * 检查登录
+     * @private
+     */
+    _checkLogin = () : boolean => {
+        if (!this._userId) {
+            this.props.navigation.navigate('Login',{
+                transition: 'forVertical',
+                callback:(userId) => {
+                    this._userId = userId
+                    this._requestUserInfo(userId)
+                }
+            })
+            return false
+        }
+        return true
+    }
     /**
      * 请求个人信息
      * @private
@@ -124,12 +160,12 @@ export default class MinePage extends Component {
      * @private
      */
     _toFavorties = ()=> {
-        if (!this._userId) {
-            this.props.navigation.navigate('Login',{
-                transition: 'forVertical'
+        if (this._checkLogin()) {
+            this.props.navigation.navigate('CollectsPage',{
+                userId: this._userId
             })
-            return
         }
+
     }
 
     /**
@@ -137,7 +173,19 @@ export default class MinePage extends Component {
      * @private
      */
     _toSetting = ()=>  {
+        this.props.navigation.navigate('SettingPage',{
+            userId: this._userId,
+            callback: () => {
+                this.setState({
+                    isLogin:true,
+                    name: '未登录',
+                    mobile: '未知手机号',
+                    avatar: null
 
+                })
+                this._userId = null
+            }
+        })
     }
 
     /**
@@ -145,10 +193,7 @@ export default class MinePage extends Component {
      * @private
      */
     _changeHeader = ()=> {
-        if (!this._userId) {
-            this.props.navigation.navigate('Login',{
-                transition: 'forVertical'
-            })
+        if (!this._checkLogin()) {
             return
         }
         const options = {
@@ -180,11 +225,80 @@ export default class MinePage extends Component {
                     this.setState({
                         avatar:image.path
                     });
+                    let ext = image.mime.substring(6)
+                    this.uploadImage(image.path,ext)
                 });
             }
         });
 
     }
+    uploadImage(uri: string,ext: string){
+        LoadingIndicator.show('头像上传中',{left:0,right:0,top:0,bottom:49},'Circle')
+        Date.prototype.format =function(format)
+        {
+            var o = {
+                "M+" : this.getMonth()+1, //month
+                "d+" : this.getDate(), //day
+                "h+" : this.getHours(), //hour
+                "m+" : this.getMinutes(), //minute
+                "s+" : this.getSeconds(), //second
+                "q+" : Math.floor((this.getMonth()+3)/3), //quarter
+                "S" : this.getMilliseconds() //millisecond
+            }
+            if(/(y+)/.test(format)) format=format.replace(RegExp.$1,
+                (this.getFullYear()+"").substr(4- RegExp.$1.length));
+            for(var k in o)if(new RegExp("("+ k +")").test(format))
+                format = format.replace(RegExp.$1,
+                    RegExp.$1.length==1? o[k] :
+                        ("00"+ o[k]).substr((""+ o[k]).length));
+            return format;
+        }
+
+
+        const formData = new FormData();
+        const  dataStr = new Date().format('yyyyMMddhhmmss')
+        const file = {uri: uri, type: `image/${ext}`, name: `${dataStr}_${this._userId}.${ext}`};
+
+        formData.append("avatar",file);
+        formData.append('from',Platform.OS)
+        formData.append('version',DeviceInfo.getVersion())
+        const data = {
+            'ext':ext,
+            'userId':this._userId
+        }
+        const sign = hex_md5(JSON.stringify(dataStr))
+        formData.append('userId',this._userId)
+        formData.append('sign',sign)
+        fetch(HttApis.MyServerApis.Base + HttApis.MyServerApis.UploadAvatar,{
+            method:'POST',
+            headers:{
+                'Content-Type':'multipart/form-data',
+                'Accept': 'application/json',
+            },
+            body:formData,
+        }).then((response) => response.json()).then((responseJson) => {
+            LoadingIndicator.hidden()
+            console.log(responseJson)
+            if (responseJson.code != '0000') {
+                Toast.show(responseJson.msg)
+                return
+            }
+            const resData = responseJson.data
+            Toast.show(resData.txt)
+            if (resData.status == 'B0000') {
+                this.setState({
+                    avatar:resData.avatar
+                })
+            }else {
+
+            }
+        }).catch(error => {
+            LoadingIndicator.hidden()
+            Toast.show('上传失败')
+            console.log(error)
+        })
+    }
+
 }
 
 const styles = StyleSheet.create({

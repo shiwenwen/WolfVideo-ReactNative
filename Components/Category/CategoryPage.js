@@ -8,7 +8,9 @@ import {
     View,
     Text,
     SectionList,
-    TouchableOpacity
+    TouchableOpacity,
+    StatusBar,
+    Platform
 } from 'react-native';
 import HttpUtil from '../../Utils/HttpUtil';
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -30,6 +32,9 @@ export default class CategoryPage extends Component {
     render() {
         return (
             <View style={styles.container}>
+                {
+                   Platform.OS == 'android' ? <StatusBar backgroundColor='white' barStyle="dark-content"/> : null
+                }
                 <SectionList
                     sections={this.state.category}
                     renderItem={this._renderItem}

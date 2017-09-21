@@ -36,6 +36,10 @@ import ActorVideoPage from './Components/Category/Actor/ActorVideoPage'
 import Login from './Components/Mine/Login/Login'
 //注册
 import Register from './Components/Mine/Login/Register'
+// 收藏
+import  CollectsPage from './Components/Mine/CollectsPage'
+//设置
+import SettingPage from './Components/Mine/SettingPage'
 
 // --------------- 持久化----------------
 import './Utils/StorageUtil';
@@ -236,10 +240,28 @@ const mainstackNavigator = StackNavigator({
             header:null,
         }
     },
+    /**
+     * 注册
+     */
     Register: {
         screen: Register,
         navigationOptions: {
             headerTitle:'注册'
+        }
+    },
+    /**
+     * 收藏页
+     */
+    CollectsPage: {
+        screen: CollectsPage,
+        navigationOptions: {
+            headerTitle:'我的收藏'
+        }
+    },
+    SettingPage: {
+        screen: SettingPage,
+        navigationOptions: {
+            headerTitle: '设置'
         }
     }
 
@@ -252,7 +274,8 @@ const mainstackNavigator = StackNavigator({
         },
         headerRight: <View />,
         headerStyle:{
-            backgroundColor:'white'
+            backgroundColor:'white',
+            height:Platform.OS == 'android' ? 40 : 64
         }
     }
 })
