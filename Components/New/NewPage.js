@@ -9,7 +9,9 @@ import {
     Text,
     TouchableOpacity,
     FlatList,
-    Image
+    Image,
+    StatusBar,
+    Platform
 } from 'react-native';
 import HttpUtil from '../../Utils/HttpUtil';
 import VideoListItem from '../Base/VideoListItem';
@@ -28,6 +30,9 @@ export default class NewPage extends Component {
     render() {
         return (
             <View style={styles.container}>
+                {
+                    Platform.OS == 'android' ? <StatusBar backgroundColor='white' barStyle="dark-content"  />  : null
+                }
                 {/*/!*ListView*!/*/}
                 <FlatList
                     data={this.state.newDataList}

@@ -16,8 +16,8 @@ module.exports = {
         SignVerify:"2edJwjL9Rwcb5dtUH32NdbINSP0kOqoIcIy6yWDT99hgmBeoCUtPtJo4YidbISC6"
     },
     MyServerApis: {
-        // Base: "http://47.94.175.119:8181/wolfVideo/", //我的服务地址 ip 35.163.52.183  ec2-35-163-52-183.us-west-2.compute.amazonaws.com
-        Base: "http://192.168.31.208:8181/wolfVideo/", //开发环境
+        Base: "http://47.94.175.119:8181/wolfVideo/", //我的服务地址 ip 35.163.52.183  ec2-35-163-52-183.us-west-2.compute.amazonaws.com
+        // Base: "http://192.168.31.208:8181/wolfVideo/", //开发环境
         Login:"account/login", //登录
         Register: "account/register", //注册
         Info: "account/info", //获取个人信息

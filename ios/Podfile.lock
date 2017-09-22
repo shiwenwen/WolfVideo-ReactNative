@@ -1,18 +1,28 @@
 PODS:
   - IQKeyboardManager (4.0.13)
   - QBImagePickerController (3.4.0)
+  - react-native-fetch-blob (0.10.6):
+    - React/Core
+  - React/Core (0.11.0)
   - RSKImageCropper (1.6.3)
 
 DEPENDENCIES:
   - IQKeyboardManager
   - QBImagePickerController
+  - react-native-fetch-blob (from `../node_modules/react-native-fetch-blob`)
   - RSKImageCropper
+
+EXTERNAL SOURCES:
+  react-native-fetch-blob:
+    :path: "../node_modules/react-native-fetch-blob"
 
 SPEC CHECKSUMS:
   IQKeyboardManager: 8eab4d8111418414619d1df8e4779ce5d0f8d7e2
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
+  React: ab1a2e21deb34965c38328d5ec40cc7d12c6050a
+  react-native-fetch-blob: 2bef9be702de8726f4d7bf58d2345579aaaee60d
   RSKImageCropper: 356e36fc58c57c371b5d8b23d603936d6a73df6c
 
-PODFILE CHECKSUM: dd89cbb4cd34d8f6e61b52f98ba26c174e86d2b5
+PODFILE CHECKSUM: 68cb14499635502b5ff5b9892d580d016cb98ada
 
 COCOAPODS: 1.2.1

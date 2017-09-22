@@ -7,6 +7,8 @@ import {
     StyleSheet,
     View,
     FlatList,
+    StatusBar,
+    Platform
 } from 'react-native';
 import {
     MyServiceHttpUtil,
@@ -33,6 +35,9 @@ export default class CollectsPage extends Component {
     render() {
         return (
             <View style={styles.container}>
+                {
+                    Platform.OS == 'android' ? <StatusBar backgroundColor='white' barStyle="dark-content"  />  : null
+                }
                 {/*/!*ListView*!/*/}
                 <FlatList
                     data={this.state.collectList}

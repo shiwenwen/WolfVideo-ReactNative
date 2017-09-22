@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 const {width:KSCREEN_WIDTH,height:KSCREEN_HEIGHT} = require('Dimensions').get('window');
+import {CustomCachedImage,CachedImage} from "react-native-img-cache";
 export default class PlayerListItem  extends Component {
     static propTypes = {
         model:PropTypes.any.isRequired,
@@ -27,7 +28,7 @@ export default class PlayerListItem  extends Component {
                 <View style={styles.container}>
                     {/*图片*/}
                     <ImageBackground style={styles.videoImageBg} resizeMode='cover' source={require('../../sources/imgs/imagePlaceholder.png')}>
-                        <Image style={styles.videoImage} resizeMode='cover' source={{uri:this.props.model.image}} ></Image>
+                        <CachedImage style={styles.videoImage} resizeMode='cover' source={{uri:this.props.model.image}} ></CachedImage>
                     </ImageBackground >
                     <View style={styles.infoContainer}>
                         <Text style={styles.title} numberOfLines={2}>{this.props.model.title}</Text>

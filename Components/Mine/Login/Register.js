@@ -15,7 +15,8 @@ import {
     Button,
     Text,
     TouchableOpacity,
-    DeviceEventEmitter
+    DeviceEventEmitter,
+    StatusBar
 } from 'react-native';
 const ScreenUtil = require('../../../Utils/ScreenUtil');
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -46,6 +47,9 @@ export default class Register  extends Component {
     render() {
         return (
             <View style={styles.container}>
+                {
+                    Platform.OS == 'android' ? <StatusBar backgroundColor='white' barStyle="dark-content"  />  : null
+                }
                 <ScrollView style={styles.container} >
                     {/*输入*/}
                     <View style={styles.inputView} >

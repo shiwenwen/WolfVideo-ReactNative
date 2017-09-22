@@ -6,7 +6,9 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
-    FlatList
+    FlatList,
+    Platform,
+    StatusBar
 } from 'react-native';
 import HttpUtil from '../../../Utils/HttpUtil';
 import VideoListItem from '../../Base/VideoListItem';
@@ -33,6 +35,9 @@ export default class ActorVideoPage extends Component {
     render() {
         return (
             <View style={styles.container}>
+                {
+                    Platform.OS == 'android' ? <StatusBar backgroundColor='white' barStyle="dark-content"  />  : null
+                }
                 {/*ListView*/}
                 <FlatList
                     data={this.state.dataList}

@@ -24,6 +24,7 @@ import EmptyView from '../Base/EmptyView'
 const ScreenUtil = require('../../Utils/ScreenUtil');
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { HUD } from '../Widgets/LoadingIndicator';
+import {CustomCachedImage,CachedImage} from "react-native-img-cache";
 export default class HotPage extends Component {
 
     constructor(props) {
@@ -117,7 +118,7 @@ export default class HotPage extends Component {
                     <TouchableOpacity style={styles.slide} onPress={() => {
                         this._onPressItme(model,i)
                     }}>
-                        <Image style={styles.slide} resizeMode='cover' source={{uri:model.playcover}}/>
+                        <CachedImage style={styles.slide} resizeMode='cover' source={{uri:model.playcover}}/>
                     </TouchableOpacity>
                 </ImageBackground>
             )

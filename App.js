@@ -40,10 +40,11 @@ import Register from './Components/Mine/Login/Register'
 import  CollectsPage from './Components/Mine/CollectsPage'
 //设置
 import SettingPage from './Components/Mine/SettingPage'
-
+//更新信息
+import UpdateInfo from './Components/Mine/UpdateInfo'
 // --------------- 持久化----------------
 import './Utils/StorageUtil';
-
+import CheckLogin from './Utils/CheckLogin'
 
 /*------------------react-navigation------------------------------*/
 import { StackNavigator,TabNavigator } from 'react-navigation';
@@ -258,10 +259,19 @@ const mainstackNavigator = StackNavigator({
             headerTitle:'我的收藏'
         }
     },
+    /**
+     * 设置
+     */
     SettingPage: {
         screen: SettingPage,
         navigationOptions: {
             headerTitle: '设置'
+        }
+    },
+    UpdateInfo: {
+        screen: UpdateInfo,
+        navigationOptions: {
+            headerTitle: '更新信息'
         }
     }
 
@@ -284,6 +294,9 @@ const styes = StyleSheet.create({
 
     }
 })
-
+/**
+ * 开启登录检查
+ */
+CheckLogin.getInstance().start()
 
 AppRegistry.registerComponent('WolfVideo', () => mainstackNavigator);

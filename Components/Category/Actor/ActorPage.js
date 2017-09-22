@@ -7,7 +7,9 @@ import {
     StyleSheet,
     View,
     Text,
-    FlatList
+    FlatList,
+    Platform,
+    StatusBar
 } from 'react-native';
 import HttpUtil from '../../../Utils/HttpUtil';
 import PlayerListItem from '../../Base/PlayerListItem';
@@ -25,6 +27,9 @@ export default class ActorPage extends Component {
     render() {
         return (
             <View style={styles.container}>
+                {
+                    Platform.OS == 'android' ? <StatusBar backgroundColor='white' barStyle="dark-content"  />  : null
+                }
                 {/*ListView*/}
                 <FlatList
                     data={this.state.dataList}

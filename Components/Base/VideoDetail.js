@@ -20,7 +20,7 @@ import Toast from  'react-native-root-toast';
 import Video from '../Widgets/VideoPlayer'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-
+import {CustomCachedImage,CachedImage} from "react-native-img-cache";
 export default class  extends Component {
     constructor(props){
         super(props)
@@ -65,7 +65,7 @@ export default class  extends Component {
                     <View style={styles.countLine}>
                         <Text style={styles.count}>{'播放次数：' + this.state.count}</Text>
                         <TouchableOpacity onPress={this._collect}>
-                            <Image source={this.state.isCollect ? require('../../sources/imgs/HotSel.png') : require('../../sources/imgs/HotNormal.png')}/>
+                            <CachedImage source={this.state.isCollect ? require('../../sources/imgs/HotSel.png') : require('../../sources/imgs/HotNormal.png')}/>
                         </TouchableOpacity>
                     </View>
                     {/*番号*/}

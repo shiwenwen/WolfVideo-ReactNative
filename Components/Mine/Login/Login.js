@@ -15,7 +15,8 @@ import {
     Button,
     Text,
     TouchableOpacity,
-    DeviceEventEmitter
+    DeviceEventEmitter,
+    StatusBar
 } from 'react-native';
 const ScreenUtil = require('../../../Utils/ScreenUtil');
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -48,6 +49,9 @@ export default class Login  extends Component {
     render() {
         return (
             <View style={styles.container} >
+                {
+                    Platform.OS == 'android' ? <StatusBar backgroundColor='white' barStyle="dark-content"  />  : null
+                }
                 <Icon onPress={this._close} name='close' size={35} color='#4AD5BD' style={styles.close}/>
                 <ScrollView style={styles.scrollView} >
                     {/*输入*/}

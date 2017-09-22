@@ -8,7 +8,7 @@ import {
     View,
     Text,
     ScrollView,
-    Image,
+    // Image,
     TouchableOpacity,
     DeviceEventEmitter,
     Platform
@@ -25,6 +25,11 @@ const hex_md5 = require('../../Utils/md5').hex_md5;
 import DeviceInfo from 'react-native-device-info';
 import  {HUD}  from "../Widgets/LoadingIndicator";
 import LoadingIndicator from "../Widgets/LoadingIndicator";
+import {CustomCachedImage,CachedImage} from "react-native-img-cache";
+
+import Image from 'react-native-image-progress';
+import ProgressBar from 'react-native-progress/Bar';
+
 export default class MinePage extends Component {
 
     constructor(props) {
@@ -35,6 +40,7 @@ export default class MinePage extends Component {
           mobile: '',
           isLogin: false
       };
+      _email = ''
       _userId:null
     }
 
@@ -46,14 +52,14 @@ export default class MinePage extends Component {
                   <View style={styles.headerView}>
                        {/* 头像*/}
                       <TouchableOpacity style={styles.avatarBg} onPress={this._changeHeader}>
-                          <Image style={styles.avatar} source={this.state.avatar ?  {uri: this.state.avatar} : require('../../sources/imgs/icon60.png')}/>
+                          <CachedImage style={styles.avatar} source={this.state.avatar ?  {uri: this.state.avatar} : require('../../sources/imgs/icon60.png')}/>
                       </TouchableOpacity>
                       {/* 信息*/}
                       <View style={styles.info}>
                           {/*手机号*/}
-                          <Text style={styles.name} onPress={this._checkLogin}>{this.state.name}</Text>
+                          <Text style={styles.name} onPress={this._toUpdate}>{this.state.name}</Text>
                           {/*手机号*/}
-                          <Text style={styles.mobile} onPress={this._checkLogin}>{this.state.mobile}</Text>
+                          <Text style={styles.mobile} onPress={this._toUpdate}>{this.state.mobile}</Text>
                       </View>
                   </View>
                   {/* ---列表项-----*/}
@@ -82,13 +88,17 @@ export default class MinePage extends Component {
 
     componentDidMount() {
         this._loadInfo()
-        this.emittr = DeviceEventEmitter.addListener('LoginSuccess',() => {
+        this.signInEmittr = DeviceEventEmitter.addListener('LoginSuccess',() => {
+            this._loadInfo()
+        })
+        this.signOutEmittr = DeviceEventEmitter.addListener('SignOut',() => {
             this._loadInfo()
         })
     }
 
     componentWillUnmount() {
-        this.emittr.remove()
+        this.signInEmittr.remove()
+        this.signOutEmittr.remove()
     }
     _loadInfo() {
         storage.load({
@@ -117,6 +127,22 @@ export default class MinePage extends Component {
 
     }
 
+    /**
+     * 更新信息
+     * @private
+     */
+    _toUpdate = () => {
+        if (this._checkLogin()) {
+            this.props.navigation.navigate('UpdateInfo',{
+                userId: this._userId,
+                name: this.state.name,
+                email:this._email,
+                callback: () => {
+                    this._requestUserInfo(this._userId)
+                }
+            })
+        }
+    }
     /**
      * 检查登录
      * @private
@@ -148,6 +174,7 @@ export default class MinePage extends Component {
                     mobile: data.mobile,
                     avatar: data.avatar
                 })
+                this._email = data.email
             }else {
                 Toast.show(data.txt)
             }

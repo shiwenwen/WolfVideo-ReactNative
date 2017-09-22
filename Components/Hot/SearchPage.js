@@ -10,7 +10,8 @@ import {
     Text,
     ScrollView,
     Platform,
-    FlatList
+    FlatList,
+    StatusBar
 } from 'react-native';
 import HttpUtil from '../../Utils/HttpUtil';
 import VideoListItem from '../Base/VideoListItem';
@@ -27,6 +28,9 @@ export default class SearchPage extends Component {
     render() {
         return (
             <ScrollView style={styles.container}>
+                {
+                    Platform.OS == 'android' ? <StatusBar backgroundColor='#4ad5ad' barStyle="default"  />  : null
+                }
                 {/*搜索框 头部*/}
                 <View style={styles.header}>
                     <TextInput

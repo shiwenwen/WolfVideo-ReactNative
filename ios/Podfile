@@ -6,6 +6,8 @@ target 'WolfVideo' do
     pod 'IQKeyboardManager'
     pod 'RSKImageCropper'
     pod 'QBImagePickerController'
+    pod 'react-native-fetch-blob',
+        :path => '../node_modules/react-native-fetch-blob'
   target 'WolfVideo-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
