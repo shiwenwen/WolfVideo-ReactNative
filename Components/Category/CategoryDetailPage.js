@@ -81,6 +81,23 @@ export default class CategoryDetailPage extends Component {
     _onPressItme = (model,index) => {
         console.log('点击了'+index)
         const { navigate } = this.props.navigation;
+        navigate(
+            'VideoDetail',
+            {
+                title:model.title,
+                id:model.id,
+                barcode:model.barcode,
+                play_conver:model.playcover,
+                player:model.player,
+                sys_ctime:model.sys_ctime,
+                cat_text:model.cat_text,
+                count:model.count,
+                cover:model.cover,
+                up_time: model.up_time,
+                category: model.category,
+                cat: model.cat
+            }
+        )
 
     }
     /*渲染分割线*/
