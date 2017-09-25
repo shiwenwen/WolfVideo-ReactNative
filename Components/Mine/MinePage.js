@@ -56,7 +56,7 @@ export default class MinePage extends Component {
                       </TouchableOpacity>
                       {/* 信息*/}
                       <View style={styles.info}>
-                          {/*手机号*/}
+                          {/*昵号*/}
                           <Text style={styles.name} onPress={this._toUpdate}>{this.state.name}</Text>
                           {/*手机号*/}
                           <Text style={styles.mobile} onPress={this._toUpdate}>{this.state.mobile}</Text>

@@ -50,7 +50,7 @@ export default class  extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <StatusBar hidden={this.state.hiddenStatusBar}/>
+                <StatusBar hidden={this.state.hiddenStatusBar} backgroundColor='black' barStyle="default"/>
                 {
                     this._renderVideo()
                 }
