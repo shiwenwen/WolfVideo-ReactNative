@@ -102,7 +102,7 @@ export default class Register  extends Component {
                         ></TextInput>
                         <TextInput
                             style={styles.input}
-                            placeholder='请输入邀请码'
+                            placeholder='请输入支付订单号'
                             keyboardType='email-address'
                             onChangeText={(text) => {
                                 this._onChangeText(5,text)
@@ -110,8 +110,9 @@ export default class Register  extends Component {
 
                             underlineColorAndroid="#4AD5BD"
                             autoCorrect={false}
-                            maxLength={6}
+                            // maxLength={20}
                         ></TextInput>
+                        <Text onPress={this._howToGetTradeNo} style={styles.howToGetTradeNo}>如何获取订单号</Text>
                         <TouchableOpacity style={styles.register} onPress={this._register}>
                             <Text style={styles.registerTitle}>注册</Text>
                         </TouchableOpacity>
@@ -153,6 +154,13 @@ export default class Register  extends Component {
             }
         }
 
+    }
+    /**
+     * 如何查看订单号
+     * @private
+     */
+    _howToGetTradeNo = () => {
+        this.props.navigation.navigate('PayGetTradeNo')
     }
     /**
      * 注册
@@ -232,7 +240,13 @@ const styles = StyleSheet.create({
         textAlign:'center',
 
     },
-
+    howToGetTradeNo: {
+        marginVertical:6,
+        textAlign:'right',
+        width:'80%',
+        color:'#4ad5ad',
+        fontSize:17
+    },
     register: {
         marginTop:20,
         marginBottom:35,

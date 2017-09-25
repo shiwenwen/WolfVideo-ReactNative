@@ -42,9 +42,15 @@ import  CollectsPage from './Components/Mine/CollectsPage'
 import SettingPage from './Components/Mine/SettingPage'
 //更新信息
 import UpdateInfo from './Components/Mine/UpdateInfo'
+
+//---------- 支付页 ----------
+import PayGetTradeNo from './Components/Pay/PayGetTradeNo'
+
 // --------------- 持久化----------------
 import './Utils/StorageUtil';
 import CheckLogin from './Utils/CheckLogin'
+
+
 
 /*------------------react-navigation------------------------------*/
 import { StackNavigator,TabNavigator } from 'react-navigation';
@@ -268,10 +274,22 @@ const mainstackNavigator = StackNavigator({
             headerTitle: '设置'
         }
     },
+    /**
+     * 更新个人信息
+     */
     UpdateInfo: {
         screen: UpdateInfo,
         navigationOptions: {
             headerTitle: '更新信息'
+        }
+    },
+    /**
+     * 查看订单号帮助
+     */
+    PayGetTradeNo: {
+        screen: PayGetTradeNo,
+        navigationOptions: {
+            headerTitle: '支付获得完整播放权'
         }
     }
 

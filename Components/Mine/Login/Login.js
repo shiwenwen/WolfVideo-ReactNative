@@ -84,6 +84,7 @@ export default class Login  extends Component {
                             secureTextEntry={true}
                             maxLength={16}
                         ></TextInput>
+                        {/*<Text onPress={this._forgetPsd} style={styles.forgetPsd}>忘记密码</Text>*/}
                         <TouchableOpacity style={styles.login} onPress={this._login}>
                             <Text style={styles.loginTitle}>登录</Text>
                         </TouchableOpacity>
@@ -116,6 +117,13 @@ export default class Login  extends Component {
         }else {
             this._psd = text
         }
+    }
+    /**
+     * 忘记密码
+     * @private
+     */
+    _forgetPsd = () => {
+        Toast.show('忘记密码')
     }
     /**
      * 登录
@@ -236,6 +244,13 @@ const styles = StyleSheet.create({
         marginTop:20,
         width:'80%',
         textAlign:'center'
+    },
+    forgetPsd: {
+        marginVertical:10,
+        textAlign:'right',
+        width:'80%',
+        color:'#4ad5ad',
+        fontSize:19
     },
     login: {
         marginTop:20,
