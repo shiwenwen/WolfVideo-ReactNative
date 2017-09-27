@@ -3,7 +3,8 @@ const reactMixin = require('react-mixin');
 import Toast from 'react-native-root-toast';
 import DeviceInfo from 'react-native-device-info';
 import {
-    DeviceEventEmitter
+    DeviceEventEmitter,
+    Alert
 } from 'react-native'
 import {
     MyServiceHttpUtil,
@@ -55,7 +56,28 @@ export default class CheckLogin {
                     }).then(() => {
                         DeviceEventEmitter.emit('SignOut')
                     })
-                    Toast.show('您的账号在其它设备登录，您已被下线')
+                    Alert.alert(
+                        '提示',
+                        '您的账号在其它设备登录，您已被下线',
+                        [
+                            {text: '确定', onPress: () => {}},
+                        ],
+                        { cancelable: false }
+                    )
+                }else  if (data.status == "B0016") {
+                    storage.remove({
+                        key:'userInfo'
+                    }).then(() => {
+                        DeviceEventEmitter.emit('SignOut')
+                    })
+                    Alert.alert(
+                        '提示',
+                        data.txt,
+                        [
+                            {text: '确定', onPress: () => {}},
+                        ],
+                        { cancelable: false }
+                    )
                 }
             },(error)=>{},false)
         }).catch(() => {})

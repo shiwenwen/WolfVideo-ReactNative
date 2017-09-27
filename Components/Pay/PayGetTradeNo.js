@@ -12,7 +12,8 @@ import {
     Button,
     CameraRoll,
     Platform,
-    StatusBar
+    StatusBar,
+    Alert
 } from 'react-native';
 const ScreenUtil = require('../../Utils/ScreenUtil');
 const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource')
@@ -65,7 +66,7 @@ export default class PayGetTradeNo extends Component {
                 <Image source={require('../../sources/imgs/imagePlaceholder.png')}/>
                 <Image source={require('../../sources/imgs/imagePlaceholder.png')}/>
                 <Text style={styles.title}>四、注册时输入此订单号即可激活成功。</Text>
-                <Text style={styles.tip}>提示，只接受当日的订单号.如果订单号过期，请发送订单号到xxx.邮箱，并标明退款，我们将为您进行退款</Text>
+                <Text style={styles.tip}>提示，由于订单号较长，请尽量复制，不要手动输入，以防输错。错误过多系统将认为恶意注册,会被封设备</Text>
 
             </ScrollView>
         );
@@ -100,19 +101,58 @@ export default class PayGetTradeNo extends Component {
                 console.log('success', res);
                 console.log('file://' + downloadDest)
                 CameraRoll.saveToCameraRoll('file://' + downloadDest).then(res => {
+                    Alert.alert(
+                        '提示',
+                        '图片保存成功',
+                        [
+                            {text: '知道了', onPress: () => {}},
+                        ],
+                        { cancelable: false }
+                    )
 
-                    alert('保存成功')
                 }).catch(error => {
 
-                    alert('保存失败\n'+error)
+                    Alert.alert(
+                        '提示',
+                        '图片保存失败',
+                        [
+                            {text: '取消', onPress: () => {}},
+                            {text: '重试', onPress: () => {
+                                this._saveQrCode(uri)
+                            }},
+                        ],
+                        { cancelable: false }
+                    )
                 })
             }).catch(err => {
+                Alert.alert(
+                    '提示',
+                    '图片保存失败',
+                    [
+                        {text: '取消', onPress: () => {}},
+                        {text: '重试', onPress: () => {
+                            this._saveQrCode(uri)
+                        }},
+                    ],
+                    { cancelable: false }
+                )
                 console.log('err', err);
-                alert('保存失败\n'+err)
+
             });
         }
         catch (error) {
-            alert('保存失败\n'+error)
+            Alert.alert(
+                '提示',
+                '图片保存失败',
+                [
+                    {text: '取消', onPress: () => {}},
+                    {text: '重试', onPress: () => {
+                        this._saveQrCode(uri)
+                    }},
+                ],
+                { cancelable: false }
+            )
+            console.log('保存失败\n'+error)
         }
 
 

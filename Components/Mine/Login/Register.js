@@ -43,7 +43,7 @@ export default class Register  extends Component {
     // 密码
     _psd = ''
     // 邀请码
-    _code = ''
+    _tradeNo = ''
     render() {
         return (
             <View style={styles.container}>
@@ -103,14 +103,14 @@ export default class Register  extends Component {
                         <TextInput
                             style={styles.input}
                             placeholder='请输入支付订单号'
-                            keyboardType='email-address'
+                            keyboardType='numeric'
                             onChangeText={(text) => {
                                 this._onChangeText(5,text)
                             }}
 
                             underlineColorAndroid="#4AD5BD"
                             autoCorrect={false}
-                            // maxLength={20}
+                            maxLength={28}
                         ></TextInput>
                         <Text onPress={this._howToGetTradeNo} style={styles.howToGetTradeNo}>如何获取订单号</Text>
                         <TouchableOpacity style={styles.register} onPress={this._register}>
@@ -150,7 +150,7 @@ export default class Register  extends Component {
                 break
             }
             default: {
-                this._code = text
+                this._tradeNo = text
             }
         }
 
@@ -184,8 +184,8 @@ export default class Register  extends Component {
             Toast.show('请输入正确邮箱号')
             return
         }
-        if (this._code.trim().length < 6) {
-            Toast.show('请输入有效邀请码')
+        if (this._tradeNo.trim().length != 28) {
+            Toast.show('请输入有效订单号')
             return
         }
 
@@ -194,7 +194,7 @@ export default class Register  extends Component {
             'password':hex_sha1(this._psd),
             'email': this._email,
             'name': this._name,
-            'authCode': this._code,
+            'tradeNo': this._tradeNo,
             'uuid':DeviceInfo.getUniqueID()
         },(data) => {
             Toast.show(data.txt)
