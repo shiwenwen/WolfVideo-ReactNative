@@ -198,8 +198,9 @@ export default class Register  extends Component {
             'tradeNo': this._tradeNo,
             'uuid':DeviceInfo.getUniqueID()
         },(data) => {
-            Toast.show(data.txt)
+
             if (data.status == 'B0000') {
+                Toast.show(data.txt)
                 //注册成功
                 // 保存登录信息
                 storage.save({
@@ -215,6 +216,15 @@ export default class Register  extends Component {
                     DeviceEventEmitter.emit('LoginSuccess',data.userId)
                     this.props.navigation.goBack(this.props.navigation.state.params.backKey)
                 })
+            }else {
+                Alert.alert(
+                    '提示',
+                    data.txt,
+                    [
+                        {text: '确定', onPress: () => {}},
+                    ],
+                    { cancelable: false }
+                )
             }
         })
 
