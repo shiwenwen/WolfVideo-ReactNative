@@ -81,9 +81,6 @@ export default class HotPage extends Component {
 
     /*渲染头部*/
     _renderHeader = () => {
-        if (this.state.headerData.length < 1) {
-            return null
-        }
         return (
             <View style={styles.header}>
                 <Swiper
