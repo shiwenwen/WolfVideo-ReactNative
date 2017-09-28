@@ -16,7 +16,8 @@ import {
     Text,
     TouchableOpacity,
     DeviceEventEmitter,
-    StatusBar
+    StatusBar,
+    Alert
 } from 'react-native';
 const ScreenUtil = require('../../../Utils/ScreenUtil');
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -145,9 +146,9 @@ export default class Login  extends Component {
             'reset':1,
             'uuid':DeviceInfo.getUniqueID()
         },(data) => {
-            Toast.show(data.txt)
-            if (data.status == 'B0000') {
 
+            if (data.status == 'B0000') {
+                Toast.show(data.txt)
                 // 保存登录信息
                 storage.save({
                     key:'userInfo',
@@ -162,6 +163,15 @@ export default class Login  extends Component {
                     this.props.navigation.state.params.callback && this.props.navigation.state.params.callback(data.userId)
                     this.props.navigation.goBack()
                 })
+            }else {
+                Alert.alert(
+                    '提示',
+                    data.txt,
+                    [
+                        {text: '确定', onPress: () => {}},
+                    ],
+                    { cancelable: false }
+                )
             }
         })
 

@@ -16,7 +16,8 @@ import {
     Text,
     TouchableOpacity,
     DeviceEventEmitter,
-    StatusBar
+    StatusBar,
+    Alert
 } from 'react-native';
 const ScreenUtil = require('../../../Utils/ScreenUtil');
 import Icon from 'react-native-vector-icons/FontAwesome';
