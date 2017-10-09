@@ -20,8 +20,8 @@ function checkisAccordPsd(psd: string) {
 
     for (let i = 0;i < psd.length;i++){
         let char = psd.charAt(i)
-        let reg1 = new RegExp('/^[A-Za-z]+$/')
-        if (!(reg1.test(char) || !isNaN(char) || char == '_')){
+        let reg = /^[A-Za-z]+$/
+        if (!(reg.test(char) || !isNaN(char) || char == '_')){
             return -1
         }
     }
