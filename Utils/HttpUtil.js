@@ -8,11 +8,12 @@ import {
 import LoadingIndicator from'../Components/Widgets/LoadingIndicator';
 // import TimerMixin from 'react-timer-mixin';
 // const reactMixin = require('react-mixin');
-const MD5_KEY = '2edJwjL9Rwcb5dtUH32NdbINSP0kOqoIcIy6yWDT99hgmBeoCUtPtJo4YidbISC6'
+
 const hex_md5 = require('./md5').hex_md5;
 import DeviceInfo from 'react-native-device-info';
 
 export const HttApis = require('../Configs/HttpApis')
+
 /**
  * 网络请求工具类
  */
@@ -178,7 +179,9 @@ export  class MyServiceHttpUtil {
                     4444,'无法连接到网络'
                 ))
             }else {
-                const sign = hex_md5(JSON.stringify(params))
+                const paramsJsonStr = JSON.stringify(params).replace(/\s+/g,"")
+                console.log('源串:' + paramsJsonStr)
+                const sign = hex_md5(paramsJsonStr + HttApis.keys.SignVerify)
                 let body = {
                     'data': params,
                     'sign': sign,
